@@ -2,34 +2,33 @@ package com.hallym.booker.domain;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter
 public class Interests {
-    private String uid;
-    private String interest1;
-    private String interest2;
-    private String interest3;
-    private String interest4;
-    private String interest5;
+    @Id
+    private String interestsUid;
+    private String uinterest1;
+    private String uinterest2;
+    private String uinterest3;
+    private String uinterest4;
+    private String uinterest5;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "profileUid")
     private Profile profile;
 
     public Interests() {}
 
-    public Interests(String uid, String interest1, String interest2, String interest3, String interest4, String interest5) {
-        this.uid = uid;
-        this.interest1 = interest1;
-        this.interest2 = interest2;
-        this.interest3 = interest3;
-        this.interest4 = interest4;
-        this.interest5 = interest5;
+    public Interests(String interestsUid, String uinterest1, String uinterest2, String uinterest3, String uinterest4, String uinterest5) {
+        this.interestsUid = interestsUid;
+        this.uinterest1 = uinterest1;
+        this.uinterest2 = uinterest2;
+        this.uinterest3 = uinterest3;
+        this.uinterest4 = uinterest4;
+        this.uinterest5 = uinterest5;
     }
 }

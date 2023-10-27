@@ -12,14 +12,16 @@ import static javax.persistence.FetchType.*;
 @Entity
 @Getter
 public class Books {
+    @Id
     private String userbid;
-    private String uid;
+
+    private String booksUid;
     private String isbn;
-    private int bookstate;
-    private int salestate;
+    private Integer bookstate;
+    private Integer salestate;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "profileUid")
     private Profile profile;
 
     @OneToMany(mappedBy = "books")
@@ -27,12 +29,11 @@ public class Books {
 
     public Books() {}
 
-    public Books(String userbid, String uid, String isbn, int bookstate, int salestate, Profile profile) {
+    public Books(String userbid, String booksUid, String isbn, int bookstate, int salestate) {
         this.userbid = userbid;
-        this.uid = uid;
+        this.booksUid = booksUid;
         this.isbn = isbn;
         this.bookstate = bookstate;
         this.salestate = salestate;
-        this.profile = profile;
     }
 }

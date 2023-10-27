@@ -2,9 +2,7 @@ package com.hallym.booker.domain;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +11,18 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter
 public class Followers {
-    private String uid;
+    @Id
+    private String followersUid;
+    private String follower_profile_uid;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "uid")
-    private List<Profile> followeruid = new ArrayList<>();
+    @JoinColumn(name = "profileUid")
+    private Profile profile;
 
     public Followers() {}
-    public Followers(String uid) {
-        this.uid = uid;
+
+    public Followers(String followersUid, String follower_profile_uid) {
+        this.followersUid = followersUid;
+        this.follower_profile_uid = follower_profile_uid;
     }
 }

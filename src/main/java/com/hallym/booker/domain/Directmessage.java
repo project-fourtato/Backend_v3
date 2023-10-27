@@ -3,18 +3,26 @@ package com.hallym.booker.domain;
 import lombok.Getter;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 public class Directmessage {
+    @Id
     private String messageid;
     private String senderuid;
     private String recipientuid;
     private LocalDateTime mdate;
-    private int mcheck;
+    private Integer mcheck;
     private String mtitle;
     private String mcontents;
+
+    @ManyToMany(mappedBy = "directmessages")
+    private List<Profile> profiles = new ArrayList<>();
 
     public Directmessage() {}
 
