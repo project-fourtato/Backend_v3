@@ -10,8 +10,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 public class Interests {
     @Id
-    @Column(name = "interests_uid")
-    private String uid;
+    private String interestsUid;
     private String uinterest1;
     private String uinterest2;
     private String uinterest3;
@@ -24,8 +23,8 @@ public class Interests {
 
     public Interests() {}
 
-    public Interests(String uid, String uinterest1, String uinterest2, String uinterest3, String uinterest4, String uinterest5) {
-        this.uid = uid;
+    public Interests(String interestsUid, String uinterest1, String uinterest2, String uinterest3, String uinterest4, String uinterest5) {
+        this.interestsUid = interestsUid;
         this.uinterest1 = uinterest1;
         this.uinterest2 = uinterest2;
         this.uinterest3 = uinterest3;

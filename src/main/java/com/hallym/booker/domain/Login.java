@@ -11,8 +11,7 @@ import javax.persistence.OneToOne;
 @Getter
 public class Login {
     @Id
-    @Column(name = "login_uid")
-    private String uid;
+    private String loginUid;
     private String nemail;
     private String nage;
 
@@ -21,8 +20,8 @@ public class Login {
 
     public Login() {}
 
-    public Login(String uid, String nemail, String nage) {
-        this.uid = uid;
+    public Login(String loginUid, String nemail, String nage) {
+        this.loginUid = loginUid;
         this.nemail = nemail;
         this.nage = nage;
     }

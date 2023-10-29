@@ -12,8 +12,7 @@ import static javax.persistence.FetchType.LAZY;
 @Getter
 public class Followings {
     @Id
-    @Column(name = "followings_uid")
-    private String uid;
+    private String followingsUid;
     private String following_profile_uid;
 
     @ManyToOne(fetch = LAZY)
@@ -22,8 +21,8 @@ public class Followings {
 
     public Followings() {}
 
-    public Followings(String uid, String following_profile_uid) {
-        this.uid = uid;
+    public Followings(String followingsUid, String following_profile_uid) {
+        this.followingsUid = followingsUid;
         this.following_profile_uid = following_profile_uid;
     }
 }
