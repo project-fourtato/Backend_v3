@@ -20,6 +20,10 @@ public class Followings {
     @JoinColumn(name = "profile_uid")
     private Profile profile;
 
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
     public Followings() {}
 
     public Followings(String uid, String following_profile_uid) {

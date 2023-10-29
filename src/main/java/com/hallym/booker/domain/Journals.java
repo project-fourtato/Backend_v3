@@ -25,6 +25,10 @@ public class Journals {
     @JoinColumn(name = "userbid")
     private Books books;
 
+    public void setBooks(Books books) {
+        this.books = books;
+    }
+
     public Journals() {}
     public Journals(String jid, LocalDateTime pdatetime, String ptitle, String pcontents, String pimageUrl, String pimagePath) {
         this.jid = jid;

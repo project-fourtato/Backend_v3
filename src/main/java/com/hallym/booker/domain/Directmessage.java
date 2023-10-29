@@ -24,6 +24,10 @@ public class Directmessage {
     @ManyToMany(mappedBy = "directmessages")
     private List<Profile> profiles = new ArrayList<>();
 
+    public void setProfiles(Profile profile) {
+        this.profiles.add(profile);
+    }
+
     public Directmessage() {}
 
     public Directmessage(String messageid, String senderuid, String recipientuid, LocalDateTime mdate, int mcheck, String mtitle, String mcontents) {

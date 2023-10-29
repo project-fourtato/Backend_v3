@@ -27,6 +27,10 @@ public class Reports {
     @ManyToMany(mappedBy = "reports")
     private List<Profile> profiles = new ArrayList<>();
 
+    public void setProfiles(Profile profile) {
+        this.profiles.add(profile);
+    }
+
     public Reports() {}
     public Reports(String uid, Rtype rtype, String rimageUrl, String rimagePath, String rcontents, LocalDateTime rdatetime, String rnickname) {
         this.uid = uid;

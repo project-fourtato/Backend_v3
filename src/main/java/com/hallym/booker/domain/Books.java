@@ -26,6 +26,15 @@ public class Books {
     @OneToMany(mappedBy = "books")
     private List<Journals> journals = new ArrayList<>();
 
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
+    public void setJournals(Journals journals) {
+        this.journals.add(journals);
+        journals.setBooks(this);
+    }
+
     public Books() {}
 
     public Books(String userbid, String isbn, int bookstate, int salestate) {

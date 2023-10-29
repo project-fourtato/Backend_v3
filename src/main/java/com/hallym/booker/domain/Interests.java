@@ -22,6 +22,10 @@ public class Interests {
     @JoinColumn(name = "profile_uid")
     private Profile profile;
 
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
     public Interests() {}
 
     public Interests(String uid, String uinterest1, String uinterest2, String uinterest3, String uinterest4, String uinterest5) {

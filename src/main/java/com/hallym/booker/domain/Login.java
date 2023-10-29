@@ -19,6 +19,11 @@ public class Login {
     @OneToOne(mappedBy = "login")
     private Profile profile;
 
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+        profile.setLogin(this);
+    }
+
     public Login() {}
 
     public Login(String uid, String nemail, String nage) {

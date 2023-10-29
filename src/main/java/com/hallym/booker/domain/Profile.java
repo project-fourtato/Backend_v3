@@ -1,5 +1,6 @@
 package com.hallym.booker.domain;
 
+import com.mysql.cj.log.Log;
 import lombok.Getter;
 import org.springframework.context.annotation.EnableMBeanExport;
 
@@ -45,6 +46,30 @@ public class Profile {
             joinColumns = @JoinColumn(name = "profile_uid"),
             inverseJoinColumns = @JoinColumn(name = "reports_uid"))
     private List<Reports> reports = new ArrayList<>();
+
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+
+    public void setBooks(Books books) {
+        this.books.add(books);
+        books.setProfile(this);
+    }
+
+    public void setInterests(Interests interests) {
+        this.interests.add(interests);
+        interests.setProfile(this);
+    }
+
+    public void setFolloweruid(Followers followeruid) {
+        this.followeruid.add(followeruid);
+        followeruid.setProfile(this);
+    }
+
+    public void setFollowinguid(Followings followinguid) {
+        this.followinguid.add(followinguid);
+        followinguid.setProfile(this);
+    }
 
     public Profile() {}
     public Profile(String uid, String nickname, String useriamgeUrl, String userimagePath, String usermessage) {
