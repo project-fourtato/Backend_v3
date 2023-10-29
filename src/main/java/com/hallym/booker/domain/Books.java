@@ -15,7 +15,6 @@ public class Books {
     @Id
     private String userbid;
 
-    private String booksUid;
     private String isbn;
     private Integer bookstate;
     private Integer salestate;
@@ -29,9 +28,8 @@ public class Books {
 
     public Books() {}
 
-    public Books(String userbid, String booksUid, String isbn, int bookstate, int salestate) {
+    public Books(String userbid, String isbn, int bookstate, int salestate) {
         this.userbid = userbid;
-        this.booksUid = booksUid;
         this.isbn = isbn;
         this.bookstate = bookstate;
         this.salestate = salestate;

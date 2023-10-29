@@ -12,7 +12,8 @@ import java.util.List;
 @Getter
 public class Reports {
     @Id
-    private String reportUid;
+    @Column(name = "report_uid")
+    private String uid;
 
     @Enumerated(EnumType.STRING)
     private Rtype rtype;
@@ -27,8 +28,8 @@ public class Reports {
     private List<Profile> profiles = new ArrayList<>();
 
     public Reports() {}
-    public Reports(String reportUid, Rtype rtype, String rimageUrl, String rimagePath, String rcontents, LocalDateTime rdatetime, String rnickname) {
-        this.reportUid = reportUid;
+    public Reports(String uid, Rtype rtype, String rimageUrl, String rimagePath, String rcontents, LocalDateTime rdatetime, String rnickname) {
+        this.uid = uid;
         this.rtype = rtype;
         this.rimageUrl = rimageUrl;
         this.rimagePath = rimagePath;

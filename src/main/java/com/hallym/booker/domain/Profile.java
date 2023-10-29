@@ -11,14 +11,15 @@ import java.util.List;
 @Getter
 public class Profile {
     @Id
-    private String profileUid;
+    @Column(name = "profile_uid")
+    private String uid;
     private String nickname;
     private String useriamgeUrl;
     private String userimagePath;
     private String usermessage;
 
     @OneToOne
-    @JoinColumn(name = "loginUid")
+    @JoinColumn(name = "login_uid")
     private Login login;
 
     @OneToMany(mappedBy = "profile")
@@ -35,19 +36,19 @@ public class Profile {
 
     @ManyToMany
     @JoinTable(name = "profile_directm",
-        joinColumns = @JoinColumn(name = "profileUid"),
+        joinColumns = @JoinColumn(name = "profile_uid"),
         inverseJoinColumns = @JoinColumn(name = "messageid"))
     private List<Directmessage> directmessages = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "profile_reports",
-            joinColumns = @JoinColumn(name = "profileUid"),
-            inverseJoinColumns = @JoinColumn(name = "reportsUid"))
+            joinColumns = @JoinColumn(name = "profile_uid"),
+            inverseJoinColumns = @JoinColumn(name = "reports_uid"))
     private List<Reports> reports = new ArrayList<>();
 
     public Profile() {}
-    public Profile(String profileUid, String nickname, String useriamgeUrl, String userimagePath, String usermessage) {
-        this.profileUid = profileUid;
+    public Profile(String uid, String nickname, String useriamgeUrl, String userimagePath, String usermessage) {
+        this.uid = uid;
         this.nickname = nickname;
         this.useriamgeUrl = useriamgeUrl;
         this.userimagePath = userimagePath;
