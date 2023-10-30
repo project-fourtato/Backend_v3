@@ -41,9 +41,9 @@ public class ProfileService {
      * 회원 삭제
      */
     @Transactional
-    public String deleteOne(String uid){
-        profileRepository.deleteById(uid);
-        return uid;
+    public String deleteOne(Profile profile){
+        profileRepository.deleteById(profile);
+        return profile.getUid();
     }
 
     /**

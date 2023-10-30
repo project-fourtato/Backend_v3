@@ -33,8 +33,8 @@ public class LoginService {
      * 회원 삭제
      */
     @Transactional
-    public String deleteOne(String uid){
-        loginRepository.deleteById(uid);
-        return uid;
+    public String deleteOne(Login login){
+        loginRepository.deleteById(login);
+        return login.getUid();
     }
 }

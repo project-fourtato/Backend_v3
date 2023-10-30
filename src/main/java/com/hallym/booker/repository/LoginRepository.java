@@ -27,8 +27,7 @@ public class LoginRepository {
 
     //회원 삭제
     //주의 : 다른 DB들 다 삭제하고 마지막에 이 메서드 실행해야 함
-    public void deleteById(String uid){
-        Login login = findOne(uid);
+    public void deleteById(Login login){
         em.remove(login);
     }
 }

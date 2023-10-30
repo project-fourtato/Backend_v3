@@ -5,6 +5,7 @@ import com.hallym.booker.domain.Reports;
 import com.hallym.booker.domain.Rtype;
 import com.hallym.booker.repository.LoginRepository;
 import com.hallym.booker.repository.ReportsRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,9 +67,10 @@ public class ReportsServiceTest {
         //given
         Reports reports = new Reports("130ekcr",Rtype.BUG,"rimageUrl","rimagePath","rcontents",LocalDateTime.now(),"rnickname");
         //when
-        String saveUid = reportsService.join(reports);
-        String deleteReports = reportsService.deleteOne(saveUid);
+        reportsService.join(reports);
+        String deleteReports = reportsService.deleteOne(reports);
+        Reports findReports = reportsService.findOne(reports.getUid());
         //then
-        assertEquals(saveUid, deleteReports);
+        Assertions.assertThat(findReports).isNull();
     }
 }

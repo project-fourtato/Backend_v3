@@ -4,6 +4,7 @@ import com.hallym.booker.domain.Login;
 import com.hallym.booker.domain.Profile;
 import com.hallym.booker.repository.LoginRepository;
 import com.hallym.booker.repository.ProfileRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,11 +63,12 @@ public class ProfileServiceTest {
     public void deleteOne() throws Exception{
         //given
         Profile profile = new Profile("130ekcr","nick","useriamgeUrl","userimagePath","usermessage");
-        String saveUid = profileService.join(profile);
+        profileService.join(profile);
         //when
-        String deleteLogin = profileService.deleteOne(saveUid);
+        String deleteProfile = profileService.deleteOne(profile);
+        Profile findProfile = profileService.findOne(profile.getUid());
         //then
-        assertEquals(saveUid, deleteLogin);
+        Assertions.assertThat(findProfile).isNull();
     }
 
     @Test
