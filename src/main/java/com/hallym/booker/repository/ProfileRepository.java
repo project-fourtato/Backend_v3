@@ -36,8 +36,7 @@ public class ProfileRepository {
     }
 
     //프로필 삭제
-    public void deleteById(String uid){
-        Profile profile = findOne(uid);
+    public void deleteById(Profile profile){
         em.remove(profile);
     }
 }

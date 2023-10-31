@@ -2,6 +2,7 @@ package com.hallym.booker.service;
 
 import com.hallym.booker.domain.Login;
 import com.hallym.booker.repository.LoginRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +51,10 @@ class LoginServiceTest {
         //given
         Login login = new Login("130ekr","hallym@gmail.com","30");
         //when
-        String saveUid = loginService.join(login);
-        String deleteLogin = loginService.deleteOne(saveUid);
+        loginService.join(login);
+        String deleteLogin = loginService.deleteOne(login);
+        Login findLogin = loginService.findOne(login.getUid());
         //then
-        assertEquals(saveUid, deleteLogin);
+        Assertions.assertThat(findLogin).isNull();
     }
 }

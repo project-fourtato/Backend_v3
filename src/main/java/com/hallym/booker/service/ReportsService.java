@@ -44,8 +44,8 @@ public class ReportsService {
      * 리폿 삭제
      */
     @Transactional
-    public String deleteOne(String uid){
-        reportsRepository.deleteById(uid);
-        return uid;
+    public String deleteOne(Reports reports){
+        reportsRepository.deleteById(reports);
+        return reports.getUid();
     }
 }

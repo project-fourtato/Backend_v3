@@ -33,8 +33,7 @@ public class ReportsRepository {
     }
 
     //리폿 삭제
-    public void deleteById(String uid){
-        Reports reports = findOne(uid);
+    public void deleteById(Reports reports){
         em.remove(reports);
     }
 }
