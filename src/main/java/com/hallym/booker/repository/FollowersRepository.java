@@ -23,7 +23,7 @@ public class FollowersRepository {
                 .getResultList();
     }
 
-    public void deleteById(Followers followers) {
+    public void delete(Followers followers) {
         em.remove(followers);
     }
 }

@@ -18,8 +18,12 @@ public class JournalsService {
     private final JournalsRepository journalsRepository;
 
     @Transactional
-    public void saveItem(Journals journals) {
+    public void saveJournals(Journals journals) {
         journalsRepository.save(journals);
+    }
+
+    public void updateJournals(Journals journals) {
+        journalsRepository.update(journals);
     }
 
     public List<Journals> findItems() {
@@ -32,6 +36,6 @@ public class JournalsService {
 
     @Transactional
     public void deleteJournals(Journals journals) {
-        journalsRepository.deleteById(journals);
+        journalsRepository.delete(journals);
     }
 }

@@ -37,7 +37,7 @@ public class JournalsServiceTest {
 
         //when
         em.persist(books);
-        journalsService.saveItem(journal);
+        journalsService.saveJournals(journal);
         List<Journals> items = journalsService.findItems();
 
         //then
@@ -72,11 +72,11 @@ public class JournalsServiceTest {
 
         //when
         em.persist(books);
-        journalsService.saveItem(journalA); //첫 저장
+        journalsService.saveJournals(journalA); //첫 저장
         Journals journalsA = journalsService.findOne(journalA.getJid());
         String pcontentA = journalsA.getPcontents();
 
-        journalsService.saveItem(journalAUpdate); //수정 저장
+        journalsService.updateJournals(journalAUpdate); //수정 저장
         Journals journalsAUpdate = journalsService.findOne(journalAUpdate.getJid());
         String pcontentAUpdate = journalsAUpdate.getPcontents();
 

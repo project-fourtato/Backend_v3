@@ -26,6 +26,6 @@ public class FollowersService {
 
     @Transactional
     public void deleteFollowers(Followers followers) {
-        followersRepository.deleteById(followers);
+        followersRepository.delete(followers);
     }
 }

@@ -14,11 +14,11 @@ public class JournalsRepository {
     private final EntityManager em;
 
     public void save(Journals journals) {
-        if(journals.getJid() == null) { //처음 등록한 객체
-            em.persist(journals);
-        } else { //이미 db에 등록된 것을 가져온 것, update랑 비슷한 것
-            em.merge(journals);
-        }
+        em.persist(journals);
+    }
+
+    public void update(Journals journals) {
+        em.merge(journals);
     }
 
     public Journals findOne(String uid) {
@@ -30,7 +30,7 @@ public class JournalsRepository {
                 .getResultList();
     }
 
-    public void deleteById(Journals journals) {
+    public void delete(Journals journals) {
         em.remove(journals);
     }
 }
