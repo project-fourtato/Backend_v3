@@ -29,12 +29,13 @@ public class JournalsServiceTest {
     @Autowired EntityManager em;
 
     @Test
+//    @Rollback(value = false)
     public void 독서록_추가() throws Exception {
         //given
         Books books = new Books("sdfegwttdh", "afwrgdwsed", 0, 0);
-        //String jid, LocalDateTime pdatetime, String ptitle, String pcontents, String pimageUrl, String pimagePath
-        Journals journal = new Journals("esdflmwlef", LocalDateTime.now(),"해리포터 꿀잼", "해리포터 재밌었어용", "afiojwd.eufkjasw.wsafc", "egfqaef/eqgvff/wqsfd/");
-        journal.setBooks(books);
+//        Journals journal = new Journals("esdflmwlef", LocalDateTime.now(),"해리포터 꿀잼", "해리포터 재밌었어용", "afiojwd.eufkjasw.wsafc", "egfqaef/eqgvff/wqsfd/");
+//        journal.setBook(books);
+        Journals journal = Journals.create(books,"esdflmwlef", LocalDateTime.now(),"해리포터 꿀잼", "해리포터 재밌었어용", "afiojwd.eufkjasw.wsafc", "egfqaef/eqgvff/wqsfd/");
 
         //when
         em.persist(books);

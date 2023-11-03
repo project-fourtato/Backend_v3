@@ -32,8 +32,8 @@ public class Followers {
     }
 
     //==생성 메서드==//
-    public static Followers create(Profile profile){
-        Followers followers = new Followers();
+    public static Followers create(Profile profile, String uid, String follower_profile_uid){
+        Followers followers = new Followers(uid, follower_profile_uid);
         followers.setProfile(profile);
         return followers;
     }

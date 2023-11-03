@@ -47,8 +47,8 @@ public class Interests {
     }
 
     //==생성 메서드==//
-    public static Interests create(Profile profile){
-        Interests interests = new Interests();
+    public static Interests create(Profile profile, String uid, String uinterest1, String uinterest2, String uinterest3, String uinterest4,  String uinterest5){
+        Interests interests = new Interests(uid,uinterest1,uinterest2, uinterest3, uinterest4, uinterest5);
         interests.setProfile(profile);
         return interests;
     }

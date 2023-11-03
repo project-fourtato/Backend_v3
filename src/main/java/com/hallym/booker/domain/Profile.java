@@ -98,8 +98,8 @@ public class Profile {
     }
 
     //==생성 메서드==//
-    public static Profile create(Login login, Reports reports, Followings followings, Followers followers, Interests interests, Books books, Directmessage directmessage){
-        Profile profile = new Profile();
+    public static Profile create(Login login, Reports reports, Followings followings, Followers followers, Interests interests, Books books, Directmessage directmessage, String uid, String nickname, String useriamgeUrl, String userimagePath, String usermessage){
+        Profile profile = new Profile(uid, nickname, useriamgeUrl, userimagePath, usermessage);
         profile.setBooks(books);
         profile.setDirectmessages(directmessage);
         profile.setFolloweruid(followers);

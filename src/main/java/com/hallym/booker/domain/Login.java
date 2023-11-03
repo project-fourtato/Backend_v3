@@ -33,8 +33,8 @@ public class Login {
     }
 
     //==생성 메서드==//
-    public static Login create(Profile profile){
-        Login login = new Login();
+    public static Login create(Profile profile, String uid, String nemail, String nage){
+        Login login = new Login(uid, nemail, nage);
         login.setProfile(profile);
         return login;
     }

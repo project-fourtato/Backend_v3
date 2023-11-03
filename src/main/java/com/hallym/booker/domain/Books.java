@@ -51,8 +51,8 @@ public class Books {
     }
 
     //==생성 메서드==//
-    public static Books create(Profile profile, Journals journals){
-        Books books = new Books();
+    public static Books create(Profile profile, Journals journals, String userbid, String isbn, int bookstate, int salestate){
+        Books books = new Books(userbid, isbn, bookstate, salestate);
         books.setProfile(profile);
         books.setJournals(journals);
         return books;

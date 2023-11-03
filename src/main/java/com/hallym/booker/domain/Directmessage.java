@@ -42,8 +42,8 @@ public class Directmessage {
     }
 
     //==생성 메서드==//
-    public static Directmessage create(Profile profile){
-        Directmessage directmessage = new Directmessage();
+    public static Directmessage create(Profile profile, String messageid, String senderuid, String recipientuid, LocalDateTime mdate, int mcheck, String mtitle, String mcontents){
+        Directmessage directmessage = new Directmessage(messageid,senderuid, recipientuid, mdate, mcheck,mtitle, mcontents);
         directmessage.setProfiles(profile);
         return directmessage;
     }

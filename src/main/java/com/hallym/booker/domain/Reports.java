@@ -44,8 +44,8 @@ public class Reports {
     }
 
     //==생성 메서드==//
-    public static Reports create(Profile profile){
-        Reports reports = new Reports();
+    public static Reports create(Profile profile, String uid, Rtype rtype, String rimageUrl, String rimagePath, String rcontents, LocalDateTime rdatetime, String rnickname){
+        Reports reports = new Reports(uid, rtype, rimageUrl, rimagePath, rcontents, rdatetime, rnickname);
         reports.setProfiles(profile);
         return reports;
     }

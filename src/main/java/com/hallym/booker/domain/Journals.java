@@ -50,8 +50,8 @@ public class Journals {
     }
 
     //==생성 메서드==//
-    public static Journals create(Books books){
-        Journals journals = new Journals();
+    public static Journals create(Books books, String jid, LocalDateTime pdatetime, String ptitle, String pcontents, String pimageUrl, String pimagePath){
+        Journals journals = new Journals(jid,pdatetime, ptitle, pcontents, pimageUrl, pimagePath);
         journals.setBooks(books);
         return journals;
     }

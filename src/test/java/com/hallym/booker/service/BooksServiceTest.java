@@ -1,6 +1,7 @@
 package com.hallym.booker.service;
 
 import com.hallym.booker.domain.Books;
+import com.hallym.booker.domain.Journals;
 import com.hallym.booker.domain.Profile;
 import com.hallym.booker.repository.BooksRepository;
 import org.assertj.core.api.Assertions;
@@ -9,10 +10,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -28,16 +31,19 @@ public class BooksServiceTest {
     EntityManager em;
 
     @Test // 책 저장
+//    @Rollback(value = false) //DB에 저장시킴
+
     public void saveBooks() throws Exception {
 
         // Given
         Profile profile = new Profile("1234", "yarong", "userimageUrl", "userimagePath", "나는 돌");
-
+        Journals journal = new Journals("qefkcnhdv", LocalDateTime.now(), "해리해리", "포터포터", "aefjoi.afj.afs", "edjsf/fad/ad/afced");
         Books books = new Books("yarong1234", "isbn", 0, 0);
-        books.setProfile(profile); // Books와 Profile을 연결
+
 
         // When
         em.persist(profile);
+        em.persist(journal);
         booksService.saveBooks(books);
         List<Books> findAllBooksByProfile = booksService.findAllBooksByProfile("1234"); // 해당 Profile의 책 목록을 가져옴
 
