@@ -71,6 +71,14 @@ public class Profile {
         followinguid.setProfile(this);
     }
 
+    public void setDirectmessages(Directmessage directmessages) {
+        this.directmessages.add(directmessages);
+    }
+
+    public void setReports(Reports reports) {
+        this.reports.add(reports);
+    }
+
     public Profile() {}
     public Profile(String uid, String nickname, String useriamgeUrl, String userimagePath, String usermessage) {
         this.uid = uid;

@@ -26,6 +26,7 @@ public class Directmessage {
 
     public void setProfiles(Profile profile) {
         this.profiles.add(profile);
+        profile.setDirectmessages(this);
     }
 
     public Directmessage() {}

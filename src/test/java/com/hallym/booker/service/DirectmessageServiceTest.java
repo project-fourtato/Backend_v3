@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +29,7 @@ public class DirectmessageServiceTest {
     EntityManager em;
 
     @Test // 메시지 저장
+    @Rollback(value = false)
     public void saveDirectMessage() throws Exception {
         // Given
         Profile profile1 = new Profile("1", "얄옹심", "얄옹심ImageUrl", "얄옹심ImagePath", "세계 정복");
@@ -35,6 +37,9 @@ public class DirectmessageServiceTest {
 
         // messageid, sender, recipient, localdatetime, mcheck, mtitle, mcontents
         Directmessage directMessage1 = new Directmessage("messageid1", profile1.getUid(), profile2.getUid(), LocalDateTime.now(), 0, "자니?", "잘 지내...?");
+
+        directMessage1.setProfiles(profile1);
+        directMessage1.setProfiles(profile2);
 
         // When
         em.persist(profile1);
@@ -44,6 +49,7 @@ public class DirectmessageServiceTest {
     //    List<Directmessage> message2 = directmessageService.findAllDirectMessagesBySender("1");
 
         // Then
+        em.flush();
         Assertions.assertThat(directMessage1).isNotNull(); // 메시지가 존재해야 함
 
     }

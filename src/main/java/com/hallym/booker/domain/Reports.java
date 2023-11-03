@@ -29,6 +29,7 @@ public class Reports {
 
     public void setProfiles(Profile profile) {
         this.profiles.add(profile);
+        profile.setReports(this);
     }
 
     public Reports() {}
