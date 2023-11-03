@@ -22,8 +22,11 @@ public class JournalsService {
         journalsRepository.save(journals);
     }
 
-    public void updateJournals(Journals journals) {
-        journalsRepository.update(journals);
+    @Transactional
+    public void updateJournals(String jid, String ptitle, String pcontents, String pimageUrl, String pimagePath) {
+        Journals findJournal = journalsRepository.findOne(jid);
+        findJournal.change(ptitle, pcontents, pimageUrl, pimagePath);
+        //journalsRepository.update(journals);
     }
 
     public List<Journals> findItems() {

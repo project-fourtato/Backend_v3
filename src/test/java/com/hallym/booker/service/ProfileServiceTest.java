@@ -72,14 +72,16 @@ public class ProfileServiceTest {
     }
 
     @Test
-    public void updateProfile() {
+    public void updateProfile() throws Exception {
         //given
         Profile profile = new Profile("130ekcn1r","nick","useriamgeUrl","userimagePath","usermessage");
         String saveUid = profileService.join(profile);
+
         //when
-        Profile updateProfile = new Profile("130ekcn1r","hihi","useriamgeUrl","userimagePath","호러 좋아해요");
-        profileService.updateProfile(updateProfile);
+        profileService.updateProfile("130ekcn1r", "useriamgeUrl", "userimagePath", "호러 좋아해요");
+//        Profile updateProfile = new Profile("130ekcn1r","hihi","useriamgeUrl","userimagePath","호러 좋아해요");
+//        profileService.updateProfile(updateProfile);
         //then
-        assertEquals("hihi", profileRepository.findOne(saveUid).getNickname());
+        assertEquals("호러 좋아해요", profileRepository.findOne(saveUid).getUsermessage());
     }
 }

@@ -38,4 +38,14 @@ public class Journals {
         this.pimageUrl = pimageUrl;
         this.pimagePath = pimagePath;
     }
+
+    //==수정 메서드==//
+    public Journals change(String ptitle, String pcontents, String pimageUrl, String pimagePath) {
+        this.ptitle = ptitle;
+        this.pcontents = pcontents;
+        this.pimageUrl = pimageUrl;
+        this.pimagePath = pimagePath;
+
+        return this;
+    }
 }

@@ -16,8 +16,9 @@ public class BooksService {
 
     // 책 정보 저장
     @Transactional
-    public void saveBooks(Books books) {
+    public String saveBooks(Books books) {
         booksRepository.saveBooks(books);
+        return books.getUserbid();
     }
 
     // 책 정보 삭제
@@ -25,6 +26,14 @@ public class BooksService {
     public void deleteBooks(Books books) {
         booksRepository.deleteBooks(books);
     }
+    
+    @Transactional
+    public void updateBooks(String userbid, int bookstate, int salestate) {
+        Books books = booksRepository.findOneBooks(userbid);
+        books.change(bookstate, salestate);
+    }
+
+    public Books findOneBooks(String userbid) { return booksRepository.findOneBooks(userbid); }
 
     // 특정 프로필에 속하는 모든 책 정보 검색
     public List<Books> findAllBooksByProfile(String uid) {

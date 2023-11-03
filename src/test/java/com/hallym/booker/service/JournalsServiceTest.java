@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,23 +68,18 @@ public class JournalsServiceTest {
         Journals journalA = new Journals("qefkcnhdv", LocalDateTime.now(), "해리해리", "포터포터", "aefjoi.afj.afs", "edjsf/fad/ad/afced");
         journalA.setBooks(books);
 
-        Journals journalAUpdate = new Journals("qefkcnhdv", LocalDateTime.now(), "해리해리", "내용 수정 좀 했어용", "aefjoi.afj.afs", "edjsf/fad/ad/afced");
-        journalAUpdate.setBooks(books);
-
         //when
         em.persist(books);
         journalsService.saveJournals(journalA); //첫 저장
-        Journals journalsA = journalsService.findOne(journalA.getJid());
-        String pcontentA = journalsA.getPcontents();
+        //Journals journalsA = journalsService.findOne(journalA.getJid());
+        //String pcontentA = journalsA.getPcontents();
 
-        journalsService.updateJournals(journalAUpdate); //수정 저장
-        Journals journalsAUpdate = journalsService.findOne(journalAUpdate.getJid());
-        String pcontentAUpdate = journalsAUpdate.getPcontents();
+        journalsService.updateJournals("qefkcnhdv", null, "내용 수정 좀 했어용", "aefjoi.afj.afs", "edjsf/fad/ad/afced"); //수정 저장
+        //Journals journalsAUpdate = journalsService.findOne(journalsA.getJid());
+        //String pcontentAUpdate = journalsAUpdate.getPcontents();
 
         //then
-        em.flush();
-        System.out.println("pcontentA = " + pcontentA);
-        System.out.println("pcontentAUpdate = " + pcontentAUpdate);
-        Assertions.assertThat(pcontentA).isNotEqualTo(pcontentAUpdate);
+        //em.flush();
+        Assertions.assertThat("포터포터").isNotEqualTo(journalsService.findOne("qefkcnhdv").getPcontents());
     }
 }

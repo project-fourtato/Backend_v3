@@ -43,4 +43,10 @@ public class Books {
         this.bookstate = bookstate;
         this.salestate = salestate;
     }
+
+    //==생성 메서드==//
+    public void change(int bookstate, int salestate) {
+        this.bookstate = bookstate;
+        this.salestate = salestate;
+    }
 }

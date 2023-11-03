@@ -19,9 +19,9 @@ public class ProfileRepository {
     }
 
     //프로필 수정
-    public void update(Profile profile){
+    /*public void update(Profile profile){
         em.merge(profile);
-    }
+    }*/
 
     //프로필 찾기
     public Profile findOne(String uid){

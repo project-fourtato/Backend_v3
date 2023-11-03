@@ -4,6 +4,7 @@ import com.hallym.booker.domain.Books;
 import com.hallym.booker.domain.Profile;
 import com.hallym.booker.repository.BooksRepository;
 import org.assertj.core.api.Assertions;
+import org.hibernate.property.access.internal.PropertyAccessFieldImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -128,5 +129,23 @@ public class BooksServiceTest {
         // Then
         Assertions.assertThat(saleStates.size()).isEqualTo(2);
         Assertions.assertThat(saleStates).contains(0, 1);
+    }
+
+    @Test
+    public void UpdateBooks() {
+        //given
+        Profile profile = new Profile("12348", "yarong", "userimageUrl", "userimagePath", "판타지 좋아해요");
+
+        Books books = new Books("yarong12348", "isbn1", 0, 0);
+        books.setProfile(profile); // Books와 Profile을 연결
+        em.persist(profile);
+        booksService.saveBooks(books);
+
+        //when
+        booksService.updateBooks("yarong12348", 0, 1);
+
+        //then
+        em.flush();
+        Assertions.assertThat(1).isEqualTo(booksRepository.findOneBooks("yarong12348").getSalestate());
     }
 }

@@ -36,4 +36,13 @@ public class Interests {
         this.uinterest4 = uinterest4;
         this.uinterest5 = uinterest5;
     }
+
+    //==수정 메서드==//
+    public void change(String uinterest1, String uinterest2, String uinterest3, String uinterest4,  String uinterest5) {
+        this.uinterest1 = uinterest1;
+        this.uinterest2 = uinterest2;
+        this.uinterest3 = uinterest3;
+        this.uinterest4 = uinterest4;
+        this.uinterest5 = uinterest5;
+    }
 }

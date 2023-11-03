@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,34 +74,36 @@ public class InterestServiceTest {
     @Test // 관심사 수정
     public void updateInterests() {
         // Given
-        Profile profile = new Profile("1234", "yarong", "userimageUrl", "userimagePath", "나는 돌");
+        Profile profile = new Profile("5678", "yarong", "userimageUrl", "userimagePath", "나는 돌");
 
-        Interests interests = new Interests("1234", "Interest1", "Interest2", "Interest3", "Interest4", "Interest5");
+        Interests interests = new Interests("5678", "Interest1", "Interest2", "Interest3", "Interest4", "Interest5");
         interests.setProfile(profile); // Interests와 Profile을 연결
 
-        Interests interestsUpdate = new Interests("1234", "수정1", "수정2", "수정3", "수정4", "수정5");
-        interestsUpdate.setProfile(profile); // Interests와 Profile을 연결
+        //Interests interestsUpdate = new Interests("1234", "수정1", "수정2", "수정3", "수정4", "수정5");
+        //interestsUpdate.setProfile(profile); // Interests와 Profile을 연결
 
         // When
         em.persist(profile);
         interestsService.saveInterests(interests); // 첫 저장
-        Interests interestsFirst = interestsService.findInterests(interests.getUid());
 
-        interestsService.updateInterests(interestsUpdate); // 수정 저장
-        Interests interestsSecond = interestsService.findInterests(interestsUpdate.getUid());
+        interestsService.updateInterests("5678", "Interest1", "Interest2", "Interest3", "Interest4", "관심사5");
+        //Interests interestsFirst = interestsService.findInterests(interests.getUid());
+
+        //interestsService.updateInterests(interestsUpdate); // 수정 저장
+        //Interests interestsSecond = interestsService.findInterests(interestsUpdate.getUid());
 
         // Then
-        em.flush();
 
         // 관심사 업데이트 되었는지 확인
-        Assertions.assertThat(interestsSecond).isNotNull(); // 업데이트 된 관심사가 null 이 아닌지 확인
+        //Assertions.assertThat(interestsSecond).isNotNull(); // 업데이트 된 관심사가 null 이 아닌지 확인
 
         // 각 관심사 필드 확인해서 업데이트 검증
-        Assertions.assertThat(interestsSecond.getUinterest1()).isEqualTo("수정1");
-        Assertions.assertThat(interestsSecond.getUinterest2()).isEqualTo("수정2");
+        Assertions.assertThat("관심사5").isEqualTo(interestsRepository.findInterests("5678").getUinterest5());
+        /*Assertions.assertThat(interestsSecond.getUinterest2()).isEqualTo("수정2");
         Assertions.assertThat(interestsSecond.getUinterest3()).isEqualTo("수정3");
         Assertions.assertThat(interestsSecond.getUinterest4()).isEqualTo("수정4");
-        Assertions.assertThat(interestsSecond.getUinterest5()).isEqualTo("수정5");
+        Assertions.assertThat(interestsSecond.getUinterest5()).isEqualTo("수정5");*/
+        em.flush();
     }
 
     @Test // 관심사 삭제

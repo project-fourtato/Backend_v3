@@ -17,9 +17,9 @@ public class JournalsRepository {
         em.persist(journals);
     }
 
-    public void update(Journals journals) {
+    /*public void update(Journals journals) {
         em.merge(journals);
-    }
+    }*/
 
     public Journals findOne(String uid) {
         return em.find(Journals.class, uid);

@@ -27,8 +27,10 @@ public class InterestsService {
 
     // 관심사 수정
     @Transactional
-    public Interests updateInterests(Interests interests) {
-        return interestsRepository.updateInterests(interests);
+    public void updateInterests(String uid, String uinterest1, String uinterest2, String uinterest3, String uinterest4, String uinterest5) {
+        Interests interests = interestsRepository.findInterests(uid);
+        interests.change(uinterest1, uinterest2, uinterest3, uinterest4, uinterest5);
+        //return interestsRepository.updateInterests(interests);
     }
 
     // 관심사 삭제

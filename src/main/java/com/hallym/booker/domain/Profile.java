@@ -79,4 +79,13 @@ public class Profile {
         this.userimagePath = userimagePath;
         this.usermessage = usermessage;
     }
+
+    //==수정 메서드==//
+    public Profile change(String useriamgeUrl, String userimagePath, String usermessage) {
+        this.useriamgeUrl = useriamgeUrl;
+        this.userimagePath = userimagePath;
+        this.usermessage = usermessage;
+
+        return this;
+    }
 }

@@ -50,8 +50,10 @@ public class ProfileService {
      * 회원 수정
      */
     @Transactional
-    public void updateProfile(Profile p){
-        Profile updateOne = new Profile(p.getUid(),p.getNickname(),p.getUseriamgeUrl(),p.getUserimagePath(),p.getUsermessage());
-        profileRepository.update(updateOne);
+    public void updateProfile(String uid, String userimageUrl, String userimagePath, String usermessage) {
+        Profile findProfile = profileRepository.findOne(uid);
+        findProfile.change(userimageUrl, userimagePath, usermessage);
+        //Profile updateOne = new Profile(p.getUid(),p.getNickname(),p.getUseriamgeUrl(),p.getUserimagePath(),p.getUsermessage());
+        //profileRepository.update(updateOne);
     }
 }

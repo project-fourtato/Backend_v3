@@ -23,9 +23,9 @@ public class InterestsRepository {
     }
 
     // 관십사 수정
-    public Interests updateInterests(Interests interests) {
+    /*public Interests updateInterests(Interests interests) {
         return em.merge(interests);
-    }
+    }*/
 
     // 관십사 삭제
     public void deleteInterests(Interests interests) {

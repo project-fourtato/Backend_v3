@@ -1,10 +1,12 @@
 package com.hallym.booker.repository;
 
 import com.hallym.booker.domain.Books;
+import com.hallym.booker.domain.Profile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.awt.print.Book;
 import java.util.List;
 
 @Repository
@@ -21,6 +23,9 @@ public class BooksRepository {
     public void deleteBooks(Books books) {
         em.remove(books);
     }
+
+    //책 하나 조회
+    public Books findOneBooks(String userbid) { return em.find(Books.class, userbid); }
 
     // 특정 프로필에 대한 모든 책 조회
     public List<Books> findAllBooksByProfile(String uid) {
