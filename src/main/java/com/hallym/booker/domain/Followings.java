@@ -30,4 +30,11 @@ public class Followings {
         this.uid = uid;
         this.following_profile_uid = following_profile_uid;
     }
+
+    //==생성 메서드==//
+    public static Followings create(Profile profile){
+        Followings followings = new Followings();
+        followings.setProfile(profile);
+        return followings;
+    }
 }

@@ -40,4 +40,11 @@ public class Directmessage {
         this.mtitle = mtitle;
         this.mcontents = mcontents;
     }
+
+    //==생성 메서드==//
+    public static Directmessage create(Profile profile){
+        Directmessage directmessage = new Directmessage();
+        directmessage.setProfiles(profile);
+        return directmessage;
+    }
 }

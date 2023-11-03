@@ -96,4 +96,17 @@ public class Profile {
 
         return this;
     }
+
+    //==생성 메서드==//
+    public static Profile create(Login login, Reports reports, Followings followings, Followers followers, Interests interests, Books books, Directmessage directmessage){
+        Profile profile = new Profile();
+        profile.setBooks(books);
+        profile.setDirectmessages(directmessage);
+        profile.setFolloweruid(followers);
+        profile.setFollowinguid(followings);
+        profile.setLogin(login);
+        profile.setInterests(interests);
+        profile.setReports(reports);
+        return profile;
+    }
 }

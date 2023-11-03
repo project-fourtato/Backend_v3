@@ -29,7 +29,7 @@ public class DirectmessageServiceTest {
     EntityManager em;
 
     @Test // 메시지 저장
-    @Rollback(value = false)
+//    @Rollback(value = false)
     public void saveDirectMessage() throws Exception {
         // Given
         Profile profile1 = new Profile("1", "얄옹심", "얄옹심ImageUrl", "얄옹심ImagePath", "세계 정복");

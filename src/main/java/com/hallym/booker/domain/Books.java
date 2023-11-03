@@ -49,4 +49,12 @@ public class Books {
         this.bookstate = bookstate;
         this.salestate = salestate;
     }
+
+    //==생성 메서드==//
+    public static Books create(Profile profile, Journals journals){
+        Books books = new Books();
+        books.setProfile(profile);
+        books.setJournals(journals);
+        return books;
+    }
 }

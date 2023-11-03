@@ -45,4 +45,12 @@ public class Interests {
         this.uinterest4 = uinterest4;
         this.uinterest5 = uinterest5;
     }
+
+    //==생성 메서드==//
+    public static Interests create(Profile profile){
+        Interests interests = new Interests();
+        interests.setProfile(profile);
+        return interests;
+    }
+
 }

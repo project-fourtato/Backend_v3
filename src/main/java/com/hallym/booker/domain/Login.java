@@ -31,4 +31,11 @@ public class Login {
         this.nemail = nemail;
         this.nage = nage;
     }
+
+    //==생성 메서드==//
+    public static Login create(Profile profile){
+        Login login = new Login();
+        login.setProfile(profile);
+        return login;
+    }
 }

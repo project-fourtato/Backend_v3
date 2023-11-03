@@ -48,4 +48,11 @@ public class Journals {
 
         return this;
     }
+
+    //==생성 메서드==//
+    public static Journals create(Books books){
+        Journals journals = new Journals();
+        journals.setBooks(books);
+        return journals;
+    }
 }

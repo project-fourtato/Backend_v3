@@ -42,4 +42,11 @@ public class Reports {
         this.rdatetime = rdatetime;
         this.rnickname = rnickname;
     }
+
+    //==생성 메서드==//
+    public static Reports create(Profile profile){
+        Reports reports = new Reports();
+        reports.setProfiles(profile);
+        return reports;
+    }
 }
