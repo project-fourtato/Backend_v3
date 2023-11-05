@@ -13,8 +13,9 @@ public class Login {
     @Id
     @Column(name = "login_uid")
     private String uid;
-    private String nemail;
-    private String nage;
+    private String pw;
+    private String email;
+    private String birth;
 
     @OneToOne(mappedBy = "login")
     private Profile profile;
@@ -26,15 +27,23 @@ public class Login {
 
     public Login() {}
 
-    public Login(String uid, String nemail, String nage) {
+    public Login(String uid, String pw, String email, String birth) {
         this.uid = uid;
-        this.nemail = nemail;
-        this.nage = nage;
+        this.pw = pw;
+        this.email = email;
+        this.birth = birth;
+    }
+
+    //==수정 메서드==//
+    public void change(String pw, String email, String birth) {
+        this.pw = pw;
+        this.email = email;
+        this.birth = birth;
     }
 
     //==생성 메서드==//
-    public static Login create(Profile profile, String uid, String nemail, String nage){
-        Login login = new Login(uid, nemail, nage);
+    public static Login create(Profile profile, String uid, String pw, String email, String birth){
+        Login login = new Login(uid, pw, email, birth);
         login.setProfile(profile);
         return login;
     }
