@@ -16,7 +16,7 @@ public class Profile {
     private String uid;
     private String nickname;
     private String useriamgeUrl;
-    private String userimagePath;
+    private String userimageName;
     private String usermessage;
 
     @OneToOne
@@ -80,26 +80,26 @@ public class Profile {
     }
 
     public Profile() {}
-    public Profile(String uid, String nickname, String useriamgeUrl, String userimagePath, String usermessage) {
+    public Profile(String uid, String nickname, String useriamgeUrl, String userimageName, String usermessage) {
         this.uid = uid;
         this.nickname = nickname;
         this.useriamgeUrl = useriamgeUrl;
-        this.userimagePath = userimagePath;
+        this.userimageName = userimageName;
         this.usermessage = usermessage;
     }
 
     //==수정 메서드==//
-    public Profile change(String useriamgeUrl, String userimagePath, String usermessage) {
+    public Profile change(String useriamgeUrl, String userimageName, String usermessage) {
         this.useriamgeUrl = useriamgeUrl;
-        this.userimagePath = userimagePath;
+        this.userimageName = userimageName;
         this.usermessage = usermessage;
 
         return this;
     }
 
     //==생성 메서드==//
-    public static Profile create(Login login, Reports reports, Followings followings, Followers followers, Interests interests, Books books, Directmessage directmessage, String uid, String nickname, String useriamgeUrl, String userimagePath, String usermessage){
-        Profile profile = new Profile(uid, nickname, useriamgeUrl, userimagePath, usermessage);
+    public static Profile create(Login login, Reports reports, Followings followings, Followers followers, Interests interests, Books books, Directmessage directmessage, String uid, String nickname, String useriamgeUrl, String userimageName, String usermessage){
+        Profile profile = new Profile(uid, nickname, useriamgeUrl, userimageName, usermessage);
         profile.setBooks(books);
         profile.setDirectmessages(directmessage);
         profile.setFolloweruid(followers);

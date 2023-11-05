@@ -19,7 +19,7 @@ public class Journals {
     private String ptitle;
     private String pcontents;
     private String pimageUrl;
-    private String pimagePath;
+    private String pimageName;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "userbid")
@@ -30,28 +30,28 @@ public class Journals {
     }
 
     public Journals() {}
-    public Journals(String jid, LocalDateTime pdatetime, String ptitle, String pcontents, String pimageUrl, String pimagePath) {
+    public Journals(String jid, LocalDateTime pdatetime, String ptitle, String pcontents, String pimageUrl, String pimageName) {
         this.jid = jid;
         this.pdatetime = pdatetime;
         this.ptitle = ptitle;
         this.pcontents = pcontents;
         this.pimageUrl = pimageUrl;
-        this.pimagePath = pimagePath;
+        this.pimageName = pimageName;
     }
 
     //==수정 메서드==//
-    public Journals change(String ptitle, String pcontents, String pimageUrl, String pimagePath) {
+    public Journals change(String ptitle, String pcontents, String pimageUrl, String pimageName) {
         this.ptitle = ptitle;
         this.pcontents = pcontents;
         this.pimageUrl = pimageUrl;
-        this.pimagePath = pimagePath;
+        this.pimageName = pimageName;
 
         return this;
     }
 
     //==생성 메서드==//
-    public static Journals create(Books books, String jid, LocalDateTime pdatetime, String ptitle, String pcontents, String pimageUrl, String pimagePath){
-        Journals journals = new Journals(jid,pdatetime, ptitle, pcontents, pimageUrl, pimagePath);
+    public static Journals create(Books books, String jid, LocalDateTime pdatetime, String ptitle, String pcontents, String pimageUrl, String pimageName){
+        Journals journals = new Journals(jid,pdatetime, ptitle, pcontents, pimageUrl, pimageName);
         journals.setBooks(books);
         return journals;
     }

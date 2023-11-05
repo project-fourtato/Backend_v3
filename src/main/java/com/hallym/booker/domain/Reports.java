@@ -19,7 +19,7 @@ public class Reports {
     private Rtype rtype;
 
     private String rimageUrl;
-    private String rimagePath;
+    private String rimageName;
     private String rcontents;
     private LocalDateTime rdatetime;
     private String rnickname;
@@ -33,19 +33,19 @@ public class Reports {
     }
 
     public Reports() {}
-    public Reports(String uid, Rtype rtype, String rimageUrl, String rimagePath, String rcontents, LocalDateTime rdatetime, String rnickname) {
+    public Reports(String uid, Rtype rtype, String rimageUrl, String rimageName, String rcontents, LocalDateTime rdatetime, String rnickname) {
         this.uid = uid;
         this.rtype = rtype;
         this.rimageUrl = rimageUrl;
-        this.rimagePath = rimagePath;
+        this.rimageName = rimageName;
         this.rcontents = rcontents;
         this.rdatetime = rdatetime;
         this.rnickname = rnickname;
     }
 
     //==생성 메서드==//
-    public static Reports create(Profile profile, String uid, Rtype rtype, String rimageUrl, String rimagePath, String rcontents, LocalDateTime rdatetime, String rnickname){
-        Reports reports = new Reports(uid, rtype, rimageUrl, rimagePath, rcontents, rdatetime, rnickname);
+    public static Reports create(Profile profile, String uid, Rtype rtype, String rimageUrl, String rimageName, String rcontents, LocalDateTime rdatetime, String rnickname){
+        Reports reports = new Reports(uid, rtype, rimageUrl, rimageName, rcontents, rdatetime, rnickname);
         reports.setProfiles(profile);
         return reports;
     }
