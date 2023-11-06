@@ -54,7 +54,9 @@ public class Books {
     public static Books create(Profile profile, Journals journals, String userbid, String isbn, int bookstate, int salestate){
         Books books = new Books(userbid, isbn, bookstate, salestate);
         books.setProfile(profile);
-        books.setJournals(journals);
+        if(journals != null) {
+            books.setJournals(journals);
+        }
         return books;
     }
 }

@@ -40,7 +40,7 @@ public class JournalsServiceTest {
         //when
         em.persist(books);
         journalsService.saveJournals(journal);
-        List<Journals> items = journalsService.findItems();
+        List<Journals> items = journalsService.findAllJournalsByUserbid("sdfegwttdh");
 
         //then
         Assertions.assertThat(items.size()).isEqualTo(1);

@@ -50,6 +50,12 @@ public class BooksRepository {
                 .getResultList();
     }
 
+    public List<Profile> findAllProfileByIsbn(String isbn) {
+        return em.createQuery("SELECT b.profile FROM Books b WHERE b.isbn = :isbn", Profile.class)
+                .setParameter("isbn", isbn)
+                .getResultList();
+    }
+
     // 책 검색에서 uid와 isbn을 통해 독서 상태 조회
     public Books SearchBooksByIsbn(String uid, String isbn) {
         Books books;

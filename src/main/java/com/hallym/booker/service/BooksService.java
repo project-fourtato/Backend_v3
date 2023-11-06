@@ -59,4 +59,8 @@ public class BooksService {
     public List<Profile> findByIsbnAndSalesstate(String isbn){
         return booksRepository.findByIsbnAndSalesstate(isbn);
     }
+
+    public List<Profile> findAllProfileByIsbn(String isbn) {
+        return booksRepository.findAllProfileByIsbn(isbn);
+    }
 }

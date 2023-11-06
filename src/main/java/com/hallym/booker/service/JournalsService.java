@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,21 +25,26 @@ public class JournalsService {
 
     @Transactional
     public void updateJournals(String jid, String ptitle, String pcontents, String pimageUrl, String pimagePath) {
-        Journals findJournal = journalsRepository.findOne(jid);
-        findJournal.change(ptitle, pcontents, pimageUrl, pimagePath);
+        Optional<Journals> findJournal = journalsRepository.findById(jid);
+
+        findJournal.ifPresent(journals -> journals.change(ptitle, pcontents, pimageUrl, pimagePath));
         //journalsRepository.update(journals);
     }
 
-    public List<Journals> findItems() {
-        return journalsRepository.findAll();
+    public List<Journals> findAllJournalsByUserbid(String userbid) {
+        return journalsRepository.findByBooks_Userbid(userbid);
     }
 
     public Journals findOne(String uid) {
-        return journalsRepository.findOne(uid);
+        Optional<Journals> findJournal = journalsRepository.findById(uid);
+
+        return findJournal.orElse(null);
     }
 
     @Transactional
     public void deleteJournals(Journals journals) {
-        journalsRepository.delete(journals);
+        if(journals != null) {
+            journalsRepository.delete(journals);
+        }
     }
 }
