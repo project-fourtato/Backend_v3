@@ -1,9 +1,7 @@
 package com.hallym.booker.api;
 
 import com.hallym.booker.domain.Login;
-import com.hallym.booker.dto.Login.LoginDto;
-import com.hallym.booker.dto.Login.LoginRequest;
-import com.hallym.booker.dto.Login.LoginResponse;
+import com.hallym.booker.dto.Login.*;
 import com.hallym.booker.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,19 +15,23 @@ public class LoginApiController {
      * 회원 등록
      */
     @PostMapping("/login/new")
-    public String loginRegister(@RequestBody LoginDto request){
+    public SuccessResponse loginRegister(@RequestBody LoginDto request){
         Login login = new Login(request.getUid(), request.getPw(), request.getEmail(), request.getBirth());
         loginservice.join(login);
-        return "Register login Success";
+        SuccessResponse successResponse = new SuccessResponse();
+        successResponse.setData("Register login Success");
+        return successResponse;
     }
 
     /**
      * 아이디 중복검사
      */
     @GetMapping("/login/checkId/{uid}")
-    public Boolean idCheck(@PathVariable("uid") String uid){
+    public LoginCheckResponse idCheck(@PathVariable("uid") String uid){
         Boolean result = loginservice.checkId(uid);
-        return result;
+        LoginCheckResponse loginCheckResponse = new LoginCheckResponse();
+        loginCheckResponse.setData(result);
+        return loginCheckResponse;
     }
 
     /**
@@ -67,8 +69,10 @@ public class LoginApiController {
      * 회원 수정
      */
     @PutMapping("login/{uid}/edit")
-    public String loginEdit(@PathVariable("uid") String uid, @RequestBody LoginRequest request){
+    public SuccessResponse loginEdit(@PathVariable("uid") String uid, @RequestBody LoginRequest request){
         loginservice.updateLogin(uid, request.getPw(), request.getEmail(), request.getBirth());
-        return "Edit Login Success";
+        SuccessResponse successResponse = new SuccessResponse();
+        successResponse.setData("Edit Login Success");
+        return successResponse;
     }
 }

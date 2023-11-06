@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 @Repository
 //영속성 컨텍스트 주입
@@ -29,10 +30,10 @@ public class ProfileRepository {
     }
 
     //프로필 닉네임으로 찾기
-    public Profile findByNickname(String nickname){
-        return em.createQuery("select m from Profile m where m.nickname = :nickname", Profile.class)
+    public List<Profile> findByNickname(String nickname){
+        return em.createQuery("select m from Profile m where m.nickname like concat('%', :nickname, '%')", Profile.class)
                 .setParameter("nickname", nickname)
-                .getSingleResult();
+                .getResultList();
     }
 
     //프로필 삭제

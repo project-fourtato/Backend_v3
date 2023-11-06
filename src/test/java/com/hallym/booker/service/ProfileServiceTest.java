@@ -53,9 +53,13 @@ public class ProfileServiceTest {
         //given
         Profile profile = new Profile("130ekcr","nick","useriamgeUrl","userimagePath","usermessage");
         profileService.join(profile);
+        Profile profile1 = new Profile("130ekcr33","nick","useriamgeUrl","userimagePath","usermessage");
+        profileService.join(profile1);
+
         //when
+        int c = profileRepository.findByNickname("nick").size();
         //then
-        assertEquals(profile.getUid(), profileRepository.findByNickname("130ekcr").getUid());
+        assertEquals(2, c);
     }
 
     @Test

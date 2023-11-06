@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.awt.print.Book;
+import java.util.LinkedList;
 import java.util.List;
 
 @Repository
@@ -46,5 +48,31 @@ public class BooksRepository {
         return em.createQuery("SELECT b.salestate FROM Books b WHERE b.profile.uid = :profileUid", Integer.class)
                 .setParameter("profileUid", uid)
                 .getResultList();
+    }
+
+    // 책 검색에서 uid와 isbn을 통해 독서 상태 조회
+    public Books SearchBooksByIsbn(String uid, String isbn) {
+        Books books;
+        try {
+            books = em.createQuery("SELECT b FROM Books b WHERE b.isbn = :isbn and b.profile.uid = :profileUid", Books.class)
+                    .setParameter("isbn", isbn)
+                    .setParameter("profileUid", uid)
+                    .getSingleResult();
+        }catch(NoResultException e) {
+            return null;
+        }
+        return books;
+
+    }
+
+    public List<Profile> findByIsbnAndSalesstate(String isbn){
+        List<Books> books = em.createQuery("SELECT b FROM Books b WHERE b.isbn = :isbn and b.salestate = 1", Books.class)
+                    .setParameter("isbn", isbn)
+                    .getResultList();
+        List<Profile> profiles = new LinkedList<>();
+        for(int i=0;i<books.size();i++){
+            profiles.add(books.get(i).getProfile());
+        }
+        return profiles;
     }
 }

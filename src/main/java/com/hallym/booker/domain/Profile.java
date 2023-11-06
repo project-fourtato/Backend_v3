@@ -100,13 +100,13 @@ public class Profile {
     //==생성 메서드==//
     public static Profile create(Login login, Reports reports, Followings followings, Followers followers, Interests interests, Books books, Directmessage directmessage, String uid, String nickname, String useriamgeUrl, String userimageName, String usermessage){
         Profile profile = new Profile(uid, nickname, useriamgeUrl, userimageName, usermessage);
-        profile.setBooks(books);
-        profile.setDirectmessages(directmessage);
-        profile.setFolloweruid(followers);
-        profile.setFollowinguid(followings);
+        if(books != null) {profile.setBooks(books);}
+        if(directmessage != null) {profile.setDirectmessages(directmessage);}
+        if(followers != null) {profile.setFolloweruid(followers);}
+        if(followings != null) {profile.setFollowinguid(followings);}
         profile.setLogin(login);
-        profile.setInterests(interests);
-        profile.setReports(reports);
+        if(interests != null) {profile.setInterests(interests);}
+        if(reports != null) {profile.setReports(reports);}
         return profile;
     }
 }

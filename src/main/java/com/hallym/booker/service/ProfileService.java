@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -33,7 +35,7 @@ public class ProfileService {
     /**
      * 회원 닉네임으로 찾기
      */
-    public Profile findByNickname(String nickname){
+    public List<Profile> findByNickname(String nickname){
         return profileRepository.findByNickname(nickname);
     }
 
@@ -55,5 +57,18 @@ public class ProfileService {
         findProfile.change(userimageUrl, userimagePath, usermessage);
         //Profile updateOne = new Profile(p.getUid(),p.getNickname(),p.getUseriamgeUrl(),p.getUserimagePath(),p.getUsermessage());
         //profileRepository.update(updateOne);
+    }
+
+    /**
+     * 닉네임 중복 검사
+     */
+    public Boolean checkNickname(String nickname){
+        List<Profile> findMembers = profileRepository.findByNickname(nickname);
+        if(!findMembers.isEmpty()){
+            return false; //회원 존재
+        }
+        else {
+            return true; //회원 없음
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.hallym.booker.service;
 
 import com.hallym.booker.domain.Books;
+import com.hallym.booker.domain.Profile;
 import com.hallym.booker.repository.BooksRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,14 @@ public class BooksService {
     // 특정 프로필에 속하는 모든 판매 상태 검색
     public List<Integer> findAllSaleStateByProfile(String uid) {
         return booksRepository.findAllSaleStateByProfile(uid);
+    }
+
+    // 책 검색에서 uid와 isbn을 통해 독서 상태 조회
+    public Books searchBooksByIsbn(String uid, String isbn){
+        return booksRepository.SearchBooksByIsbn(uid,isbn);
+    }
+
+    public List<Profile> findByIsbnAndSalesstate(String isbn){
+        return booksRepository.findByIsbnAndSalesstate(isbn);
     }
 }

@@ -43,4 +43,6 @@ public class InterestsService {
     public List<Interests> findAllInterestsByProfile(String profileUid) {
         return interestsRepository.findAllInterestsByProfile(profileUid);
     }
+
+
 }
