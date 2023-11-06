@@ -1,10 +1,12 @@
 package com.hallym.booker.api;
 
 import com.hallym.booker.domain.Books;
+import com.hallym.booker.domain.Journals;
 import com.hallym.booker.domain.Profile;
 import com.hallym.booker.dto.Result;
 import com.hallym.booker.dto.books.*;
 import com.hallym.booker.service.BooksService;
+import com.hallym.booker.service.JournalsService;
 import com.hallym.booker.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ public class BooksApiController {
 
     private final BooksService booksService;
     private final ProfileService profileService;
+    private final JournalsService journalsService;
 
     @GetMapping("/bestseller")
     public Result aladinBestseller() {
@@ -64,18 +67,18 @@ public class BooksApiController {
         return new Result(collect);
     }
 
-    @PostMapping("/search/Journals/new/{uid}")
+    @PostMapping("/search/books/new/{uid}")
     public CreateBooksResponse createBooks(
             @PathVariable("uid") String uid,
             @RequestBody CreateBooksRequest request) {
         Profile findProfile = profileService.findOne(uid);
+        String createUserbid = request.getIsbn().concat(uid);
 
-        //String userbid, String isbn, int bookstate, int salestate
-        Books books = new Books(request.getUserbid(), request.getIsbn(), request.getBookstate(), request.getSalestate());
-        books.setProfile(findProfile); //여기서 이렇게 해주는게 맞는감,, -> 생성 메소드..?
-        String userbid = booksService.saveBooks(books);
+        Books books = Books.create(findProfile, null,
+                createUserbid, request.getIsbn(), request.getBookstate(), request.getSalestate());
 
-        return new CreateBooksResponse(userbid);
+        booksService.saveBooks(books);
+        return new CreateBooksResponse("Books Registration Success");
     }
 
     @GetMapping("/booksList/{uid}")
@@ -88,12 +91,44 @@ public class BooksApiController {
         return new Result(collect);
     }
 
-    @GetMapping("/books/{userbid}")
+    @GetMapping("/booksState/{userbid}")
     public BooksStateResponse booksState(@PathVariable("userbid") String userbid) {
         Books findBooks = booksService.findOneBooks(userbid);
 
         return new BooksStateResponse(findBooks.getUserbid(),
                 findBooks.getBookstate(),
                 findBooks.getSalestate());
+    }
+
+    @PostMapping("/books/{userbid}/delete")
+    public BooksDeleteResponse booksDelete(@PathVariable("userbid") String userbid) {
+        List<Journals> allJournalsByUserbid = journalsService.findAllJournalsByUserbid(userbid);
+
+        for (Journals journals : allJournalsByUserbid) {
+            journalsService.deleteJournals(journals);
+        }
+
+        Books findBooks = booksService.findOneBooks(userbid);
+        booksService.deleteBooks(findBooks);
+
+        return new BooksDeleteResponse("Delete Books Success");
+    }
+
+    @GetMapping("/books/{isbn}")
+    public Result booksIsbnList(@PathVariable String isbn) {
+        List<Profile> allProfileByIsbn = booksService.findAllProfileByIsbn(isbn);
+        List<ProfileIsbnDto> collect = allProfileByIsbn.stream()
+                .map(m -> new ProfileIsbnDto(m.getUid(), m.getNickname(), m.getUseriamgeUrl(), m.getUserimageName(), m.getUsermessage()))
+                .collect(Collectors.toList());
+
+        return new Result(collect);
+    }
+    @PutMapping("/books/salestateUpdate/{userbid}")
+    public UpdateBooksStateResponse updateSaleState(@RequestBody UpdateBooksStateRequest request,
+                                                     @PathVariable String userbid) {
+        Books findBook = booksService.findOneBooks(userbid);
+        booksService.updateBooks(userbid, findBook.getBookstate(), request.getSalestate());
+
+        return new UpdateBooksStateResponse("bookstate update success");
     }
 }

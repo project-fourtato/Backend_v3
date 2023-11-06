@@ -1,10 +1,10 @@
-package com.hallym.booker.dto.books;
+package com.hallym.booker.dto.journals;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CreateBooksResponse {
+public class CreateJournalsResponse {
     private String data;
 }

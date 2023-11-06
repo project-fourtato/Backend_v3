@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CreateBooksResponse {
+public class UpdateBooksStateResponse {
     private String data;
 }

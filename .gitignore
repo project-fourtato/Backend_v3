@@ -4,6 +4,7 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+src/main/resources/project-booker-404207-83e308ade68a.json
 
 ### STS ###
 .apt_generated
