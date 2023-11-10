@@ -1,8 +1,6 @@
 package com.hallym.booker.domain;
 
-import com.mysql.cj.log.Log;
 import lombok.Getter;
-import org.springframework.context.annotation.EnableMBeanExport;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,16 +27,13 @@ public class Profile {
     @OneToMany(mappedBy = "profile")
     private List<Interests> interests = new ArrayList<>();
 
-    @OneToMany(mappedBy = "profile")
-    private List<Followers> followeruid = new ArrayList<>();
-
-    @OneToMany(mappedBy = "profile")
-    private List<Followings> followinguid = new ArrayList<>();
+    @OneToMany(mappedBy = "fromUserId")
+    private List<Follow> follow = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "profile_directm",
-        joinColumns = @JoinColumn(name = "profile_uid"),
-        inverseJoinColumns = @JoinColumn(name = "messageid"))
+            joinColumns = @JoinColumn(name = "profile_uid"),
+            inverseJoinColumns = @JoinColumn(name = "messageid"))
     private List<Directmessage> directmessages = new ArrayList<>();
 
     @ManyToMany
@@ -61,14 +56,9 @@ public class Profile {
         interests.setProfile(this);
     }
 
-    public void setFolloweruid(Followers followeruid) {
-        this.followeruid.add(followeruid);
-        followeruid.setProfile(this);
-    }
-
-    public void setFollowinguid(Followings followinguid) {
-        this.followinguid.add(followinguid);
-        followinguid.setProfile(this);
+    public void setFollow(Follow follow) {
+        this.follow.add(follow);
+        follow.setProfile(this);
     }
 
     public void setDirectmessages(Directmessage directmessages) {
@@ -98,15 +88,15 @@ public class Profile {
     }
 
     //==생성 메서드==//
-    public static Profile create(Login login, Reports reports, Followings followings, Followers followers, Interests interests, Books books, Directmessage directmessage, String uid, String nickname, String useriamgeUrl, String userimageName, String usermessage){
+    public static Profile create(Login login, Reports reports, Follow follow, Interests interests, Books books, Directmessage directmessage, String uid, String nickname, String useriamgeUrl, String userimageName, String usermessage){
         Profile profile = new Profile(uid, nickname, useriamgeUrl, userimageName, usermessage);
-        if(books != null) {profile.setBooks(books);}
-        if(directmessage != null) {profile.setDirectmessages(directmessage);}
-        if(followers != null) {profile.setFolloweruid(followers);}
-        if(followings != null) {profile.setFollowinguid(followings);}
+        profile.setBooks(books);
+        profile.setDirectmessages(directmessage);
+        profile.setFollow(follow);
         profile.setLogin(login);
-        if(interests != null) {profile.setInterests(interests);}
-        if(reports != null) {profile.setReports(reports);}
+        profile.setInterests(interests);
+        profile.setReports(reports);
         return profile;
     }
+
 }

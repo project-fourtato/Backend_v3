@@ -1,8 +1,6 @@
 package com.hallym.booker.service;
 
-import com.hallym.booker.domain.Followings;
 import com.hallym.booker.domain.Journals;
-import com.hallym.booker.repository.FollowingsRepository;
 import com.hallym.booker.repository.JournalsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
