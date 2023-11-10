@@ -1,5 +1,6 @@
 package com.hallym.booker.service;
 
+import com.hallym.booker.domain.Interests;
 import com.hallym.booker.domain.Login;
 import com.hallym.booker.domain.Profile;
 import com.hallym.booker.repository.LoginRepository;
@@ -71,4 +72,5 @@ public class ProfileService {
             return true; //회원 없음
         }
     }
+
 }

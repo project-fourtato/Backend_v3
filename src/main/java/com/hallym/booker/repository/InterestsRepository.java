@@ -38,4 +38,10 @@ public class InterestsRepository {
                 .setParameter("profileUid", uid)
                 .getResultList();
     }
+    //모든 관심사들 조회(본인 제외)
+    public List<Interests> findAllInterests(String uid) {
+        return em.createQuery("SELECT i FROM Interests i where i.profile.uid not in :profileUid", Interests.class)
+                .setParameter("profileUid", uid)
+                .getResultList();
+    }
 }

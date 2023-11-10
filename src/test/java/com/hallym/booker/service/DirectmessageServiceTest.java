@@ -36,7 +36,7 @@ public class DirectmessageServiceTest {
         Profile profile2 = new Profile("2", "지민씨", "지민씨ImageUrl", "지민씨ImagePath", "우주 정복");
 
         // messageid, sender, recipient, localdatetime, mcheck, mtitle, mcontents
-        Directmessage directMessage1 = new Directmessage("messageid1", profile1.getUid(), profile2.getUid(), LocalDateTime.now(), 0, "자니?", "잘 지내...?");
+        Directmessage directMessage1 = new Directmessage(profile1.getUid(), profile2.getUid(), LocalDateTime.now(), 0, "자니?", "잘 지내...?");
 
         directMessage1.setProfiles(profile1);
         directMessage1.setProfiles(profile2);
@@ -61,8 +61,8 @@ public class DirectmessageServiceTest {
         Profile profile4 = new Profile("4", "가지군", "가지군ImageUrl", "가지군ImagePath", "보라색 조아");
 
         // messageid, sender, recipient, localdatetime, mcheck, mtitle, mcontents
-        Directmessage directMessage2 = new Directmessage("messageid2", profile3.getUid(), profile4.getUid(), LocalDateTime.now(), 0, "배고팡", "마라탕 먹구 시퍼");
-        Directmessage directMessage3 = new Directmessage("messageid3", profile4.getUid(), profile3.getUid(), LocalDateTime.now(), 0, "졸령", "잠 좀 자구 시퍼");
+        Directmessage directMessage2 = new Directmessage(profile3.getUid(), profile4.getUid(), LocalDateTime.now(), 0, "배고팡", "마라탕 먹구 시퍼");
+        Directmessage directMessage3 = new Directmessage(profile4.getUid(), profile3.getUid(), LocalDateTime.now(), 0, "졸령", "잠 좀 자구 시퍼");
 
         // When
         em.persist(profile3);
@@ -84,8 +84,8 @@ public class DirectmessageServiceTest {
         Profile profile5 = new Profile("5", "감자하나", "감자하나ImageUrl", "감자하나ImagePath", "감자도리");
         Profile profile6 = new Profile("6", "감자둘", "감자둘ImageUrl", "감자둘ImagePath", "감자도리링");
 
-        Directmessage directMessage4 = new Directmessage("messageid4", profile5.getUid(), profile6.getUid(), LocalDateTime.now(), 0, "닭갈비", "구워줘");
-        Directmessage directMessage5 = new Directmessage("messageid5", profile6.getUid(), profile5.getUid(), LocalDateTime.now(), 0, "감자밭", "먹으러 갈랭?");
+        Directmessage directMessage4 = new Directmessage(profile5.getUid(), profile6.getUid(), LocalDateTime.now(), 0, "닭갈비", "구워줘");
+        Directmessage directMessage5 = new Directmessage(profile6.getUid(), profile5.getUid(), LocalDateTime.now(), 0, "감자밭", "먹으러 갈랭?");
 
         // When
         em.persist(profile5);
@@ -114,9 +114,9 @@ public class DirectmessageServiceTest {
         Profile test1 = new Profile("test1Uid", "test1", "test1ImageUrl", "test1ImagePath", "test1 메세지");
         Profile test2 = new Profile("test2Uid", "test2", "test2ImageUrl", "test2ImagePath", "test2 메세지");
 
-        Directmessage directMessage6 = new Directmessage("messageid6", profile7.getUid(), profile8.getUid(), LocalDateTime.now(), 0, "감자넷아", "감자나 먹어");
-        Directmessage directMessage7 = new Directmessage("messageid7", profile7.getUid(), profile8.getUid(), LocalDateTime.now(), 0, "쪽지 좀 봐주겠니?", "쪽지를 왜 안 봐");
-        Directmessage directMessage8 = new Directmessage("messageid8", test1.getUid(), test2.getUid(), LocalDateTime.now(), 1, "우힝힝", "밥 줘");
+        Directmessage directMessage6 = new Directmessage(profile7.getUid(), profile8.getUid(), LocalDateTime.now(), 0, "감자넷아", "감자나 먹어");
+        Directmessage directMessage7 = new Directmessage(profile7.getUid(), profile8.getUid(), LocalDateTime.now(), 0, "쪽지 좀 봐주겠니?", "쪽지를 왜 안 봐");
+        Directmessage directMessage8 = new Directmessage(test1.getUid(), test2.getUid(), LocalDateTime.now(), 1, "우힝힝", "밥 줘");
 
         // When
         em.persist(profile7);
@@ -141,9 +141,9 @@ public class DirectmessageServiceTest {
         Profile profile10 = new Profile("10", "고구마양", "고구마양ImageUrl", "고구마양ImagePath", "감자 시러");
 
 
-        Directmessage directMessage9 = new Directmessage("messageid9", profile9.getUid(), profile10.getUid(), LocalDateTime.now(), 1, "고구마양", "너를 향한 나의 마음을 알아조");
-        Directmessage directMessage10 = new Directmessage("messageid10", profile9.getUid(), profile10.getUid(), LocalDateTime.now(), 0, "고구마양 외 않바?", "쪽지 좀 읽어줘");
-        Directmessage directMessage11 = new Directmessage("messageid11", profile10.getUid(), profile9.getUid(), LocalDateTime.now(), 0, "보이면 안 됨", "보이면 안 됨");
+        Directmessage directMessage9 = new Directmessage(profile9.getUid(), profile10.getUid(), LocalDateTime.now(), 1, "고구마양", "너를 향한 나의 마음을 알아조");
+        Directmessage directMessage10 = new Directmessage(profile9.getUid(), profile10.getUid(), LocalDateTime.now(), 0, "고구마양 외 않바?", "쪽지 좀 읽어줘");
+        Directmessage directMessage11 = new Directmessage(profile10.getUid(), profile9.getUid(), LocalDateTime.now(), 0, "보이면 안 됨", "보이면 안 됨");
 
 
         // When

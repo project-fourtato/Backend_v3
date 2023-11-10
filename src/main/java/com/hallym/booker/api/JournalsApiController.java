@@ -128,11 +128,11 @@ public class JournalsApiController {
         return findBookInfo;
     }
 
-    @PutMapping("/journals/bookstateUpdate/{userbid}")
+    @PutMapping("/journals/bookstateUpdate/uid={uid}&isbn={isbn}")
     public UpdateBooksStateResponse updateBookState(@RequestBody UpdateBooksStateRequest request,
-                                                    @PathVariable String userbid) {
-        Books findBook = booksService.findOneBooks(userbid);
-        booksService.updateBooks(userbid, request.getBookstate(), findBook.getSalestate());
+                                                    @PathVariable String uid, @PathVariable String isbn) {
+        Books findBook = booksService.searchBooksByIsbn(uid, isbn);
+        booksService.updateBooks(findBook.getUserbid(), request.getBookstate(), findBook.getSalestate());
 
         return new UpdateBooksStateResponse("bookstate update success");
     }

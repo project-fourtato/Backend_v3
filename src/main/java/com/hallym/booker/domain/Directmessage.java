@@ -2,9 +2,7 @@ package com.hallym.booker.domain;
 
 import lombok.Getter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 public class Directmessage {
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String messageid;
     private String senderuid;
     private String recipientuid;
@@ -31,8 +29,7 @@ public class Directmessage {
 
     public Directmessage() {}
 
-    public Directmessage(String messageid, String senderuid, String recipientuid, LocalDateTime mdate, int mcheck, String mtitle, String mcontents) {
-        this.messageid = messageid;
+    public Directmessage(String senderuid, String recipientuid, LocalDateTime mdate, int mcheck, String mtitle, String mcontents) {
         this.senderuid = senderuid;
         this.recipientuid = recipientuid;
         this.mdate = mdate;
@@ -42,8 +39,8 @@ public class Directmessage {
     }
 
     //==생성 메서드==//
-    public static Directmessage create(Profile profile, String messageid, String senderuid, String recipientuid, LocalDateTime mdate, int mcheck, String mtitle, String mcontents){
-        Directmessage directmessage = new Directmessage(messageid,senderuid, recipientuid, mdate, mcheck,mtitle, mcontents);
+    public static Directmessage create(Profile profile, String senderuid, String recipientuid, LocalDateTime mdate, int mcheck, String mtitle, String mcontents){
+        Directmessage directmessage = new Directmessage(senderuid, recipientuid, mdate, mcheck,mtitle, mcontents);
         directmessage.setProfiles(profile);
         return directmessage;
     }

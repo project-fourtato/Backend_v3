@@ -8,4 +8,7 @@ import lombok.Data;
 public class BestsellerResultDto {
     private String BookName;
     private String BookAuthor;
+    private String isbn;
+    private String publisher;
+    private String cover;
 }

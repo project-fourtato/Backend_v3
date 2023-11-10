@@ -10,6 +10,7 @@ import com.hallym.booker.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,8 +20,7 @@ public class ProfileApiController {
     private final ProfileService profileService;
     private final InterestsService interestsService;
     private final LoginService loginService;
-    private final FollowingsService followingsService;
-    private final FollowersService followersService;
+    private final FollowService followService;
     private final ReportsService reportsService;
     private final BooksService booksService;
     private final DirectmessageService directmessageService;
@@ -37,7 +37,7 @@ public class ProfileApiController {
 
         //Following, Followers,reports,books,directmessages == null
 //        loginservice.join(login);
-        Profile profile = Profile.create(login, null, null, null, null, null, null, request.getUid(), request.getNickname(), request.getUseriamgeUrl(), request.getUserimageName(), request.getUsermessage());
+        Profile profile = Profile.create(login, null, null, null, null, null, request.getUid(), request.getNickname(), request.getUseriamgeUrl(), request.getUserimageName(), request.getUsermessage());
         Interests interests = Interests.create(profile, request.getUid(), request.getUinterest1(), request.getUinterest2(), request.getUinterest3(), request.getUinterest4(), request.getUinterest5());
         profileService.join(profile);
         interestsService.saveInterests(interests);
@@ -116,12 +116,29 @@ public class ProfileApiController {
     /**
      * 관심사가 동일한 프로필 목록 조회
      */
-    //interests 조회하는 거 구현X
-//    @GetMapping("/profile/interests/{uid}")
-//    public List<ProfileInterestDto> sameInterestsList(@PathVariable("uid") String uid){
-//        Interests interests = interestsService.
-//
-//    }
+    @GetMapping("/profile/interests/{uid}")
+    public Result sameInterestsList(@PathVariable("uid") String uid){
+        List<Profile> profiles = interestsService.sameInterests(interestsService.findInterests(uid));
+        List<ProfileInterestDto> profileInterestDtos = new ArrayList<>();
+        for(int i=0;i<profiles.size();i++){
+            Profile profile = profiles.get(i);
+            Interests interests = interestsService.findInterests(profile.getUid());
+            ProfileInterestDto p = new ProfileInterestDto(
+                    profile.getUid(),
+                    profile.getNickname(),
+                    profile.getUseriamgeUrl(),
+                    profile.getUserimageName(),
+                    profile.getUsermessage(),
+                    interests.getUinterest1(),
+                    interests.getUinterest2(),
+                    interests.getUinterest3(),
+                    interests.getUinterest4(),
+                    interests.getUinterest5());
+            profileInterestDtos.add(p);
+        }
+
+        return new Result(profileInterestDtos);
+    }
 
     /**
      * 유저 검색에서 유저 닉네임을 통해 조회
