@@ -91,41 +91,54 @@ public class BooksApiController {
     /**
      * 읽고 있는 책 목록
      */
-    @GetMapping("/booksList/{uid}")
-    public Result booksList(@PathVariable("uid") String id) {
-        aladinApi aapi = new aladinApi();
-
-        List<Books> findBooks = booksService.findAllBooksByProfile(id);
-        List<BooksWithImgDto> collect = findBooks.stream()
-                .map(m -> new BooksWithImgDto(m.getUserbid(), id, m.getIsbn(), m.getBookstate(), m.getSalestate()))
+//    @GetMapping("/booksList/{uid}")
+//    public Result booksList(@PathVariable("uid") String id) {
+//        aladinApi aapi = new aladinApi();
+//
+//        List<Books> findBooks = booksService.findAllBooksByProfile(id);
+//        List<BooksWithImgDto> collect = findBooks.stream()
+//                .map(m -> new BooksWithImgDto(m.getUserbid(), id, m.getIsbn(), m.getBookstate(), m.getSalestate()))
+//                .collect(Collectors.toList());
+//
+//        // 본인이 받은 api키를 추가
+//        String key = "";
+//        try {
+//            DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+//            DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+//            for(int i=0;i<collect.size();i++) {
+//                // parsing할 url 지정(API 키 포함해서)
+//                String url = "https://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbwlco13232133003&itemIdType=ISBN13&ItemId=" + collect.get(i).getIsbn() + "&output=xml&Version=20131101";
+//
+//                Document doc = dBuilder.parse(url);
+//
+//                // 제일 첫번째 태그
+//                doc.getDocumentElement().normalize();
+//
+//                // 파싱할 tag
+//                NodeList nList = doc.getElementsByTagName("item");
+//
+//                Node nNode = nList.item(0);
+//                Element eElement = (Element) nNode;
+//                String br = (aapi.getTagValue("cover", eElement));
+//                collect.get(i).setCover(br);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        for(int i=0;i<collect.size();i++){
+//
+//        }
+//        return new Result(collect);
+//    }
+    //나와 같이 읽는 사람
+    private Result booksIsbnList(@PathVariable String isbn) {
+        List<Profile> allProfileByIsbn = booksService.findAllProfileByIsbn(isbn);
+        List<ProfileIsbnDto> collect = allProfileByIsbn.stream()
+                .map(m -> new ProfileIsbnDto(m.getUid(), m.getNickname(), m.getUseriamgeUrl(), m.getUserimageName(), m.getUsermessage()))
                 .collect(Collectors.toList());
 
-        // 본인이 받은 api키를 추가
-        String key = "";
-        try {
-            DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
-            for(int i=0;i<collect.size();i++) {
-                // parsing할 url 지정(API 키 포함해서)
-                String url = "https://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbwlco13232133003&itemIdType=ISBN13&ItemId=" + collect.get(i).getIsbn() + "&output=xml&Version=20131101";
-
-                Document doc = dBuilder.parse(url);
-
-                // 제일 첫번째 태그
-                doc.getDocumentElement().normalize();
-
-                // 파싱할 tag
-                NodeList nList = doc.getElementsByTagName("item");
-
-                Node nNode = nList.item(0);
-                Element eElement = (Element) nNode;
-                String br = (aapi.getTagValue("cover", eElement));
-                collect.get(i).setCover(br);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return new Result(collect);
     }
 
@@ -155,15 +168,7 @@ public class BooksApiController {
         return new BooksDeleteResponse("Delete Books Success");
     }
 
-    @GetMapping("/books/{isbn}")
-    public Result booksIsbnList(@PathVariable String isbn) {
-        List<Profile> allProfileByIsbn = booksService.findAllProfileByIsbn(isbn);
-        List<ProfileIsbnDto> collect = allProfileByIsbn.stream()
-                .map(m -> new ProfileIsbnDto(m.getUid(), m.getNickname(), m.getUseriamgeUrl(), m.getUserimageName(), m.getUsermessage()))
-                .collect(Collectors.toList());
 
-        return new Result(collect);
-    }
 
     @PutMapping("/books/salestateUpdate/{userbid}")
     public UpdateBooksStateResponse updateSaleState(@RequestBody UpdateBooksStateRequest request,
