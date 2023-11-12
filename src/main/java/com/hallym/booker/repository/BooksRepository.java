@@ -53,6 +53,7 @@ public class BooksRepository {
     public List<Profile> findAllProfileByIsbn(String isbn) {
         return em.createQuery("SELECT b.profile FROM Books b WHERE b.isbn = :isbn", Profile.class)
                 .setParameter("isbn", isbn)
+                .setMaxResults(5)
                 .getResultList();
     }
 
