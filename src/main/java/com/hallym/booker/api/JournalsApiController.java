@@ -100,6 +100,7 @@ public class JournalsApiController {
             String url = "https://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbwlco13232133003&itemIdType=ISBN13&ItemId=" + isbn + "&output=xml&Version=20131101&OptResult=ebookList,usedList,reviewList";
 
             DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+
             DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
             Document doc = dBuilder.parse(url);
 

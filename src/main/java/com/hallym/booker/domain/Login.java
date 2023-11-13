@@ -2,10 +2,7 @@ package com.hallym.booker.domain;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -17,7 +14,8 @@ public class Login {
     private String email;
     private String birth;
 
-    @OneToOne(mappedBy = "login")
+    // // foreign key constraint fails 에러를 위한 생쿼리문
+    @OneToOne(mappedBy = "login", cascade = CascadeType.REMOVE)
     private Profile profile;
 
     public void setProfile(Profile profile) {

@@ -1,13 +1,13 @@
 package com.hallym.booker.service;
 
 import com.hallym.booker.domain.Login;
-import com.hallym.booker.domain.Profile;
 import com.hallym.booker.repository.LoginRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -46,7 +46,6 @@ public class LoginService {
         }
     }
 
-
     /**
      * 회원 찾기
      */
@@ -58,9 +57,8 @@ public class LoginService {
      * 회원 삭제
      */
     @Transactional
-    public String deleteOne(Login login){
-        loginRepository.deleteById(login);
-        return login.getUid();
+    public void deleteOne(String uid) {
+        loginRepository.deleteByUid(uid);
     }
 
     /**
@@ -77,7 +75,14 @@ public class LoginService {
      */
     @Transactional
     public Login loginLogin(String uid, String pw){
-        Login findLogin = loginRepository.loginOne(uid,pw);
-        return findLogin;
+        Optional<Login> findLogin = loginRepository.loginOne(uid, pw);
+        return findLogin.orElse(null);
+    }
+
+    // foreign key constraint fails 에러를 위한 생쿼리문
+    public void deleteTableWithForeignKeyChecks(Login login) {
+        loginRepository.disableForeignKeyChecks();
+        loginRepository.deleteByUid(login.getUid());
+        loginRepository.enableForeignKeyChecks();
     }
 }

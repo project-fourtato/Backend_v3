@@ -1,9 +1,6 @@
 package com.hallym.booker.service;
 
-import com.hallym.booker.domain.Interests;
-import com.hallym.booker.domain.Login;
 import com.hallym.booker.domain.Profile;
-import com.hallym.booker.repository.LoginRepository;
 import com.hallym.booker.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

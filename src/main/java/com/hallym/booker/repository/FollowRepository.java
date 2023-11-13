@@ -17,7 +17,7 @@ public interface FollowRepository extends JpaRepository<Follow, Long> { // 주�
       Optional<Follow> findByToUserId(String toUserId);*/
 
     // fromUserId가 팔로잉 하는 목록 조회 (전체)
-    @Query(value = "select from follow where from_user_id = ?1", nativeQuery = true)
+    @Query(value = "select * from follow where from_user_id = ?1", nativeQuery = true)
     List<Follow> findAllByToUserId(String fromUserId);
 
     // toUserId를 팔로워 하는 수 조회 (전체), 아직 사용할 일 x
@@ -31,6 +31,5 @@ public interface FollowRepository extends JpaRepository<Follow, Long> { // 주�
     // toUserId를 팔로워 하는 수 조회 (전체)
     @Query(value = "select count() from follow where to_user_id = ?1", nativeQuery = true)
     Long countByToUserId(String toUserId);
-
 
 }

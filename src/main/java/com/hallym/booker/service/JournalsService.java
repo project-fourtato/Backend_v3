@@ -1,6 +1,7 @@
 package com.hallym.booker.service;
 
 import com.hallym.booker.domain.Journals;
+import com.hallym.booker.repository.FollowRepository;
 import com.hallym.booker.repository.JournalsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class JournalsService {
 
     private final JournalsRepository journalsRepository;
+    private  final FollowRepository followRepository;
 
     @Transactional
     public void saveJournals(Journals journals) {
@@ -37,6 +39,11 @@ public class JournalsService {
         Optional<Journals> findJournal = journalsRepository.findById(uid);
 
         return findJournal.orElse(null);
+    }
+
+    // 11/12 추가, fromUserId가 팔로잉 중인 toUserId의 모든 독서록 조회
+    public List<Journals> findLatestJournalByUser(String userbid) {
+        return journalsRepository.findAllByBooks_UserbidOrderByPdatetimeDesc(userbid);
     }
 
     @Transactional

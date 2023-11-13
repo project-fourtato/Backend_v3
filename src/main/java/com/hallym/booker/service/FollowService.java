@@ -2,6 +2,7 @@ package com.hallym.booker.service;
 
 import com.hallym.booker.domain.Follow;
 import com.hallym.booker.repository.FollowRepository;
+import com.hallym.booker.repository.JournalsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class FollowService {
 
     private final FollowRepository followRepository;
+    private final JournalsRepository journalsRepository;
 
 
     // 팔로잉 & 팔로워 추가
@@ -61,4 +63,5 @@ public class FollowService {
     public void deleteFollow(Follow follow) {
         followRepository.delete(follow);
     }
+
 }

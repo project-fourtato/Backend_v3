@@ -36,6 +36,7 @@ public class ProfileRepository {
                 .getResultList();
     }
 
+
     //프로필 삭제
     public void deleteById(Profile profile){
         em.remove(profile);

@@ -1,9 +1,7 @@
 package com.hallym.booker.service;
 
-import com.hallym.booker.domain.Login;
 import com.hallym.booker.domain.Reports;
 import com.hallym.booker.domain.Rtype;
-import com.hallym.booker.repository.LoginRepository;
 import com.hallym.booker.repository.ReportsRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -16,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class) //@Autowird, @MockBean에 해당되는 것들에만 application context 로딩

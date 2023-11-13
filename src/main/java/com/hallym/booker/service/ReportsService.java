@@ -1,5 +1,6 @@
 package com.hallym.booker.service;
 
+import com.hallym.booker.domain.Directmessage;
 import com.hallym.booker.domain.Profile;
 import com.hallym.booker.domain.Reports;
 import com.hallym.booker.domain.Rtype;
@@ -40,6 +41,11 @@ public class ReportsService {
         return reportsRepository.findByRtype(rtype);
     }
 
+
+    // 11/12 추가, 특정 신고자에 대한 모든 신고 찾기
+    public List<Reports> findAllByUid(String uid) {
+        return reportsRepository.findAllByUid(uid);
+    }
     /**
      * 리폿 삭제
      */
@@ -48,4 +54,7 @@ public class ReportsService {
         reportsRepository.deleteById(reports);
         return reports.getUid();
     }
+
+
+
 }

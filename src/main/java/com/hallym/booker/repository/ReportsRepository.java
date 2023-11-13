@@ -32,6 +32,13 @@ public class ReportsRepository {
                 .getResultList();
     }
 
+    // 11/12 추가, 특정 신고자에 대한 모든 신고 찾기
+    public List<Reports> findAllByUid(String uid) {
+        return em.createQuery("select m from Reports m where m.uid = :uid", Reports.class)
+                .setParameter("uid", uid)
+                .getResultList();
+    }
+
     //리폿 삭제
     public void deleteById(Reports reports){
         em.remove(reports);

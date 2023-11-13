@@ -8,6 +8,8 @@ import com.hallym.booker.dto.Profile.*;
 import com.hallym.booker.dto.Result;
 import com.hallym.booker.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -84,19 +86,52 @@ public class ProfileApiController {
      * 프로필 삭제
      */
 
-    //이거 나중에 다시 수정!!! journal 등등 uid에 맞춰서 꺼내오는 거 해야 함
-//    @PostMapping("/profile/{uid}/delete")
-//    public String profileDelete(@PathVariable("uid") String uid){
-//        List<Directmessage> directmessageList1 = directmessageService.findAllDirectMessagesByRecipient(uid);
-//        for(int i=0;i<directmessageList1.size();i++){
-//            directmessageService.deleteDirectmessage(directmessageList1.get(i));
-//        }
-//        List<Directmessage> directmessageList2 = directmessageService.findAllDirectMessagesBySender(uid);
-//        for(int i=0;i<directmessageList2.size();i++){
-//            directmessageService.deleteDirectmessage(directmessageList2.get(i));
-//        }
-//        List<Journals> journalsList = journalsService.findItems();
-//    }
+    @PostMapping("/profile/{uid}/delete")
+    public ResponseEntity<String> profileDelete(@PathVariable("uid") String uid) {
+        try {
+            List<Directmessage> directmessageList1 = directmessageService.findAllDirectMessagesByRecipient(uid);
+            for(int i=0;i<directmessageList1.size();i++){
+                directmessageService.deleteDirectmessage(directmessageList1.get(i));
+            }
+            List<Directmessage> directmessageList2 = directmessageService.findAllDirectMessagesBySender(uid);
+            for(int i=0;i<directmessageList2.size();i++){
+                directmessageService.deleteDirectmessage(directmessageList2.get(i));
+            }
+            List<Interests> InterestsList = interestsService.findAllInterestsByProfile(uid);
+            for(int i=0;i<InterestsList.size();i++) {
+                interestsService.deleteInterests(InterestsList.get(i));
+            }
+            List<Books> booksList = booksService.findAllBooksByProfile(uid);
+            for(int i=0;i<booksList.size();i++){
+                List<Journals> journalsList = journalsService.findAllJournalsByUserbid(booksList.get(i).getUserbid());
+                for(int j=0;j<journalsList.size();j++){
+                    journalsService.deleteJournals(journalsList.get(j));
+                }
+            }
+            List<Reports> reportsList = reportsService.findAllByUid(uid);
+            for(int i=0;i<reportsList.size();i++) {
+                reportsService.deleteOne(reportsList.get(i));
+            }
+            List<Follow> followingList = followService.findAllTo(uid);
+            for(int i=0;i<followingList.size();i++) {
+                followService.deleteFollow(followingList.get(i));
+            }
+            List<Follow> followerList = followService.findAllFrom(uid);
+            for(int i=0;i<followerList.size();i++) {
+                followService.deleteFollow(followerList.get(i));
+            }
+            for(int i=0;i<booksList.size();i++) {
+                booksService.deleteBooks(booksList.get(i));
+            }
+            Login login = loginService.findOne(uid);
+            loginService.deleteTableWithForeignKeyChecks(login);
+
+            return ResponseEntity.ok("Profile and associated data deleted successfully");
+        } catch (Exception e) {
+            e.printStackTrace(); // Log the exception for debugging
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting profile");
+        }
+    }
 
     /**
      * 프로필 조회
