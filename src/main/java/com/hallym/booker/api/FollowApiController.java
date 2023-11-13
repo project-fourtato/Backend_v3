@@ -24,17 +24,14 @@ public class FollowApiController {
     // 팔로잉 & 팔로워 추가
     // http://localhost:8080/follow/new?toUserId=hamji&fromUserId=poipoi
     @PostMapping("/follow/new")
-    public FollowDto addFollow(@RequestParam String toUserId, @RequestParam String fromUserId) {
+    public FollowCreateResponse addFollow(@RequestParam String toUserId, @RequestParam String fromUserId) {
         // 팔로우 추가를 컨트롤러에서 처리하고 데이터베이스에 저장
         Profile profile = profileService.findOne(fromUserId);
-
         Follow follow = Follow.create(profile, toUserId);
-        System.out.println(profile.getNickname());
-
         followService.saveFollow(follow);
 
         // 성공 메시지 반환
-        return new FollowDto(toUserId, fromUserId);
+        return new FollowCreateResponse("Follow created successfully");
     }
 
     // fromUserId가 팔로잉 하는 수 조회 (전체)
@@ -48,7 +45,7 @@ public class FollowApiController {
     }
 
     // toUserId를 팔로워 하는 수 조회 (전체)
-    // http://localhost:8080/follow/follwersCount/yarong
+    // http://localhost:8080/follow/followersCount/yarong
     @GetMapping("/follow/followersCount/{toUserId}")
     public ToUserIdCountDto followersCount(@PathVariable("toUserId") String toUserId) {
         Long findFollowersCounts = followService.countByToUserId(toUserId);
@@ -75,7 +72,7 @@ public class FollowApiController {
     public Result followingsList(@PathVariable("fromUserId") String fromUserId) {
         // fromUserId가 팔로잉 하는 목록 조회
         List<Follow> followings = followService.findAllTo(fromUserId);
-        List<FollowProfileResponse> findAll = new LinkedList<>();
+        List<FollowProfileResponse> findAll1 = new LinkedList<>();
         for (int i = 0; i < followings.size(); i++) {
             Profile p = profileService.findOne(followings.get(i).getToUserId());
             FollowProfileResponse fj1 = new FollowProfileResponse(
@@ -85,9 +82,30 @@ public class FollowApiController {
                     p.getUseriamgeUrl(),
                     p.getUserimageName()
             );
-            findAll.add(fj1);
+            findAll1.add(fj1);
         }
-        return new Result(findAll);
+        return new Result(findAll1);
+    }
+
+    // toUserId를 팔로워 하는 목록 조회 - 프로필(사진 이름, URL)&닉네임 (전체)
+    // http://localhost:8080/follow/followersList/yarong
+    @GetMapping("/follow/followersList/{toUserId}")
+    public Result followersList(@PathVariable("toUserId") String toUserId) {
+        // fromUserId가 팔로잉 하는 목록 조회
+        List<Follow> followers = followService.findAllFrom(toUserId);
+        List<FollowProfileResponse> findAll2 = new LinkedList<>();
+        for (int i = 0; i < followers.size(); i++) {
+            Profile p = profileService.findOne(followers.get(i).getFromUserId().getUid());
+            FollowProfileResponse fj2 = new FollowProfileResponse(
+                    followers.get(i).getFromUserId().getUid(),
+                    followers.get(i).getToUserId(),
+                    p.getNickname(),
+                    p.getUseriamgeUrl(),
+                    p.getUserimageName()
+            );
+            findAll2.add(fj2);
+        }
+        return new Result(findAll2);
     }
 
     // fromUserId가 팔로잉 하는 목록의 최신 독서록 목록 조회 - 프로필(사진 이름, URL)&닉네임, 독서록 제목&날짜 랜덤 5개 (전체)
@@ -141,9 +159,9 @@ public class FollowApiController {
         Follow follow = followService.findOneTo(fromUserId, toUserId);
         if (follow != null && follow.getToUserId().equals(toUserId)) {
             followService.deleteFollow(follow);
-            return new FollowDeleteResponse("Followings deleted successfully");
+            return new FollowDeleteResponse("Follow deleted successfully");
         } else {
-            return new FollowDeleteResponse("Followings deleted error");
+            return new FollowDeleteResponse("Follow deleted error");
         }
     }
 

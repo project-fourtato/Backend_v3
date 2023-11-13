@@ -45,7 +45,7 @@ public class FollowService {
         return followRepository.findAllByToUserId(fromUserId);
     }
 
-    // toUserId를 팔로워 하는 수 조회 (전체), 아직 사용할 일 x
+    // toUserId를 팔로워 하는 목록 조회 (전체)
     public List<Follow> findAllFrom(String toUserId) {
         return followRepository.findAllByFromUserId(toUserId);
     }

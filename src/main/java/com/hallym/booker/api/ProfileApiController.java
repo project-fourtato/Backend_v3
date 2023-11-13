@@ -85,7 +85,7 @@ public class ProfileApiController {
     /**
      * 프로필 삭제
      */
-
+    // http://localhost:8080/profile/user1/delete
     @PostMapping("/profile/{uid}/delete")
     public ResponseEntity<String> profileDelete(@PathVariable("uid") String uid) {
         try {
