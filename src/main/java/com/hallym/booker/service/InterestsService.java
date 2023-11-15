@@ -57,6 +57,7 @@ public class InterestsService {
         if(interests.getUinterest3()==null) mecnt = 2;
         else if(interests.getUinterest4()==null) mecnt = 3;
         else if(interests.getUinterest5()==null) mecnt = 4;
+        else mecnt = 5;
         List<Interests> interestsList = interestsRepository.findAllInterests(interests.getUid());
         List<Profile> result = new LinkedList<>();
         int cnt = 0;
