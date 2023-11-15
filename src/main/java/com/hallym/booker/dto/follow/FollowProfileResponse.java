@@ -12,4 +12,5 @@ public class FollowProfileResponse {
     private String nickname;
     private String userimageUrl;
     private String userimageName;
+    private String usermessage;
 }

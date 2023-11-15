@@ -80,7 +80,8 @@ public class FollowApiController {
                     followings.get(i).getFromUserId().getUid(),
                     p.getNickname(),
                     p.getUseriamgeUrl(),
-                    p.getUserimageName()
+                    p.getUserimageName(),
+                    p.getUsermessage()
             );
             findAll1.add(fj1);
         }
@@ -101,7 +102,8 @@ public class FollowApiController {
                     followers.get(i).getToUserId(),
                     p.getNickname(),
                     p.getUseriamgeUrl(),
-                    p.getUserimageName()
+                    p.getUserimageName(),
+                    p.getUsermessage()
             );
             findAll2.add(fj2);
         }
