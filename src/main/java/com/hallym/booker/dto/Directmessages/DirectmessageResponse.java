@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 public class DirectmessageResponse {
-    private String messageid;
+    private Long messageid;
     private String senderuid;
     private String recipientuid;
     private LocalDateTime mdate;

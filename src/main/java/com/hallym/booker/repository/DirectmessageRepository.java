@@ -19,7 +19,7 @@ public class DirectmessageRepository {
     }
 
     //쪽지 찾기(조회)
-    public Directmessage findDirectmessage(String messageid){
+    public Directmessage findDirectmessage(Long messageid){
         return em.find(Directmessage.class, messageid);
     }
 

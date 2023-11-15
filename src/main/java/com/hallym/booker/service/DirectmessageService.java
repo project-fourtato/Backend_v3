@@ -1,5 +1,6 @@
 package com.hallym.booker.service;
 
+import com.hallym.booker.domain.Books;
 import com.hallym.booker.domain.Directmessage;
 import com.hallym.booker.repository.DirectmessageRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class DirectmessageService {
     }
 
     // 쪽지 조회
-    public Directmessage findDirectmessage(String messageid) {
+    public Directmessage findDirectmessage(Long messageid) {
         return directmessageRepository.findDirectmessage(messageid);
     }
 
@@ -39,6 +40,13 @@ public class DirectmessageService {
     // 특정 수신자(recipient)에 대한 모든 쪽지 조회
     public List<Directmessage> findAllDirectMessagesByRecipient(String recipientUid) {
         return directmessageRepository.findAllDirectMessagesByRecipient(recipientUid);
+    }
+
+    // 쪽지 상태 업데이트 (11/15 추가)
+    @Transactional
+    public void updateMcheck(Long messageid, int mcheck) {
+        Directmessage directmessage = directmessageRepository.findDirectmessage(messageid);
+        directmessage.change(mcheck);
     }
 
 }

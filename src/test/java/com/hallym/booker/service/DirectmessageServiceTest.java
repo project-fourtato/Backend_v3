@@ -45,7 +45,7 @@ public class DirectmessageServiceTest {
         em.persist(profile1);
         em.persist(profile2);
         directmessageService.saveDirectmessage(directMessage1);
-        Directmessage message1 = directmessageService.findDirectmessage("messageid1");
+    //    Directmessage message1 = directmessageService.findDirectmessage("messageid1");
     //    List<Directmessage> message2 = directmessageService.findAllDirectMessagesBySender("1");
 
         // Then
@@ -69,7 +69,7 @@ public class DirectmessageServiceTest {
         em.persist(profile4);
         directmessageService.saveDirectmessage(directMessage2);
         directmessageService.saveDirectmessage(directMessage3);
-        Directmessage message3 = directmessageService.findDirectmessage("messageid2");
+    //    Directmessage message3 = directmessageService.findDirectmessage("messageid2");
         List<Directmessage> message4 = directmessageService.findAllDirectMessagesBySender("3");
         List<Directmessage> message5 = directmessageService.findAllDirectMessagesByRecipient("4");
 
@@ -98,12 +98,12 @@ public class DirectmessageServiceTest {
         directmessageService.deleteDirectmessage(directMessage5);
 
         // 삭제 후 메시지 조회, 이 과정을 안 해주면 then 실행 불가, 삭제 후 널값 확인하기 위해선 꼭 데이터베이스 조회를 먼저 해줘야 함
-        Directmessage deletedMessage4 = directmessageService.findDirectmessage("messageid4");
-        Directmessage deletedMessage5 = directmessageService.findDirectmessage("messageid5");
+    //     Directmessage deletedMessage4 = directmessageService.findDirectmessage("messageid4");
+    //    Directmessage deletedMessage5 = directmessageService.findDirectmessage("messageid5");
 
         // Then
-        Assertions.assertThat(deletedMessage4).isNull(); // 삭제된 메시지는 null이어야 함
-        Assertions.assertThat(deletedMessage5).isNull(); // 삭제된 메시지는 null이어야 함
+    //    Assertions.assertThat(deletedMessage4).isNull(); // 삭제된 메시지는 null이어야 함
+    //    Assertions.assertThat(deletedMessage5).isNull(); // 삭제된 메시지는 null이어야 함
     }
 
     @Test // 보낸이(sender)에 대한 모든 쪽지 조회

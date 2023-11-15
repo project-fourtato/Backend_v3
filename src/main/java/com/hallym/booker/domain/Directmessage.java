@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class Directmessage {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String messageid;
+    private Long messageid;
     private String senderuid;
     private String recipientuid;
     private LocalDateTime mdate;
@@ -36,6 +36,11 @@ public class Directmessage {
         this.mcheck = mcheck;
         this.mtitle = mtitle;
         this.mcontents = mcontents;
+    }
+
+    //==수정 메서드==// (11/15 추가)
+    public void change(int mcheck) {
+        this.mcheck = mcheck;
     }
 
     //==생성 메서드==//

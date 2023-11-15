@@ -2,8 +2,7 @@ package com.hallym.booker.api;
 
 import com.hallym.booker.domain.Directmessage;
 import com.hallym.booker.domain.Profile;
-import com.hallym.booker.dto.Directmessages.DirectmessageDto;
-import com.hallym.booker.dto.Directmessages.DirectmessageResponse;
+import com.hallym.booker.dto.Directmessages.*;
 import com.hallym.booker.dto.Result;
 import com.hallym.booker.service.DirectmessageService;
 import com.hallym.booker.service.ProfileService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -86,25 +84,39 @@ public class DirectmessagesApiController {
             return new Result(findAll);
         }
 
-        // 쪽지 조회
+        // 하나의 쪽지 조회
+        // http://localhost:8080/directmessages/10/user2
         @GetMapping("/directmessages/{messageid}/{uid}")
-        public Result findDirectmessage(@PathVariable("messageid") String messageid, @PathVariable("uid") String uid) {
+        public Result findDirectmessage(@PathVariable("messageid") Long messageid, @PathVariable("uid") String uid) {
             Directmessage findDirectmessage = directmessageService.findDirectmessage(messageid);
             DirectmessageDto d = new DirectmessageDto(messageid,findDirectmessage.getSenderuid(), findDirectmessage.getRecipientuid(), findDirectmessage.getMdate(), findDirectmessage.getMcheck(), findDirectmessage.getMtitle(), findDirectmessage.getMcontents());
             return new Result(d);
         }
 
-    // 쪽지 삭제
-    @PostMapping("/directmessages/messageid={messageid}/delete")
-    public Result deleteDirectmessage(@PathVariable("messageid") String messageid) {
+        // 쪽지 상태 업데이트 (11/15 추가)
+        // http://localhost:8080/directmessages/mcheckUpdate/12
+        /*{
+               "mcheck": 1
+           }
+         */
+        @PutMapping("/directmessages/mcheckUpdate/{messageid}")
+        public UpdateMcheckResponse updateMcheck(@RequestBody UpdateMcheckRequest request, @PathVariable Long messageid) {
+            //Directmessage findDirectmessage = directmessageService.findDirectmessage(messageid);
+            directmessageService.updateMcheck(messageid, request.getMcheck());
 
-        Directmessage directmessage = directmessageService.findDirectmessage(messageid);
-        directmessageService.deleteDirectmessage(directmessage);
+            return new UpdateMcheckResponse("mcheck update success");
+        }
 
-        // 성공 메시지 반환
-        return new Result("Directmessages deleted successfully");
-    }
+        // 쪽지 삭제
+        @PostMapping("/directmessages/messageid={messageid}/delete")
+        public Result deleteDirectmessage(@PathVariable("messageid") Long messageid) {
 
+            Directmessage directmessage = directmessageService.findDirectmessage(messageid);
+            directmessageService.deleteDirectmessage(directmessage);
+
+            // 성공 메시지 반환
+            return new Result("Directmessages deleted successfully");
+        }
 
     }
 }
