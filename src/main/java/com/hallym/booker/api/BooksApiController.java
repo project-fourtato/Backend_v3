@@ -107,7 +107,7 @@ public class BooksApiController {
             DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
             for(int i=0;i<collect.size();i++) {
                 // parsing할 url 지정(API 키 포함해서)
-                String url = "https://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbwlco13232133003&itemIdType=ISBN13&ItemId=" + collect.get(i).getIsbn() + "&output=xml&Version=20131101";
+                String url = "https://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbwlco13232133003&itemIdType=ISBN13&SearchTarget=Book&ItemId=" + collect.get(i).getIsbn() + "&output=xml&Version=20131101";
 
                 Document doc = dBuilder.parse(url);
 
@@ -205,7 +205,7 @@ public class BooksApiController {
 
         try {
             // parsing할 url 지정(API 키 포함해서)
-            String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbwlco13232133003&Query=" + searchOne + "&QueryType=Keyword&start=1&SearchTarget=Book&output=xml&Version=20131101";
+            String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbwlco13232133003&Sort=SalesPoint&Query=" + searchOne + "&QueryType=Keyword&start=1&SearchTarget=Book&output=xml&Version=20131101";
 
             DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
@@ -268,7 +268,7 @@ public class BooksApiController {
 
         try {
             // parsing할 url 지정(API 키 포함해서)
-            String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbwlco13232133003&Query=" + searchOne + "&QueryType=Keyword&start=1&SearchTarget=Book&output=xml&Version=20131101";
+            String url = "http://www.aladin.co.kr/ttb/api/ItemSearch.aspx?ttbkey=ttbwlco13232133003&SearchTarget=Book&QueryType=Keyword&Sort=SalesPoint&Query=" + searchOne;
 
             DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
