@@ -442,4 +442,43 @@ public class BooksApiController {
 
         return collect;
     }
+
+    /**
+     * 책 상세 정보
+     */
+    @GetMapping("books/booksDetail/{isbn}")
+    public Result booksDetail(@PathVariable("isbn") String isbn) {
+        aladinApi aapi = new aladinApi();
+
+        // 본인이 받은 api키를 추가
+        String key = "";
+        BooksDetailDto collect = new BooksDetailDto();
+
+        try {
+            // parsing할 url 지정(API 키 포함해서)
+            String url = "http://www.aladin.co.kr/ttb/api/ItemLookUp.aspx?ttbkey=ttbwlco13232133003&itemIdType=ISBN13&ItemId="+isbn+"&output=xml&Version=20131101&O";
+
+            DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+            Document doc = dBuilder.parse(url);
+
+            // 제일 첫번째 태그
+            doc.getDocumentElement().normalize();
+
+            // 파싱할 tag
+            NodeList nList = doc.getElementsByTagName("item");
+
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+
+                Element eElement = (Element) nNode;
+
+                collect = new BooksDetailDto(aapi.getTagValue("title", eElement), aapi.getTagValue("author", eElement), aapi.getTagValue("pubDate", eElement),aapi.getTagValue("description", eElement),aapi.getTagValue("isbn13", eElement), aapi.getTagValue("cover", eElement), aapi.getTagValue("categoryName", eElement), aapi.getTagValue("publisher", eElement));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Result(collect);
+    }
 }

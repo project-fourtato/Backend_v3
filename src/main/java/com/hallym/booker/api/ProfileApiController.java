@@ -137,15 +137,23 @@ public class ProfileApiController {
      * 프로필 조회
      */
     @GetMapping("/profile/{uid}")
-    public ProfileDto profileFind(@PathVariable("uid") String uid) {
+    public ProfileInterestDto profileFind(@PathVariable("uid") String uid) {
         Profile profile = profileService.findOne(uid);
-        ProfileDto profileDto = new ProfileDto();
-        profileDto.setUid(profile.getUid());
-        profileDto.setNickname(profile.getNickname());
-        profileDto.setUsermessage(profile.getUsermessage());
-        profileDto.setUseriamgeUrl(profile.getUseriamgeUrl());
-        profileDto.setUserimageName(profile.getUserimageName());
-        return profileDto;
+        ProfileInterestDto profileInterestDto = new ProfileInterestDto();
+        profileInterestDto.setUid(profile.getUid());
+        profileInterestDto.setNickname(profile.getNickname());
+        profileInterestDto.setUsermessage(profile.getUsermessage());
+        profileInterestDto.setUseriamgeUrl(profile.getUseriamgeUrl());
+        profileInterestDto.setUserimageName(profile.getUserimageName());
+
+        Interests interests = interestsService.findInterests(uid);
+        profileInterestDto.setUinterest1(interests.getUinterest1());
+        profileInterestDto.setUinterest2(interests.getUinterest2());
+        profileInterestDto.setUinterest3(interests.getUinterest3());
+        profileInterestDto.setUinterest4(interests.getUinterest4());
+        profileInterestDto.setUinterest5(interests.getUinterest5());
+
+        return profileInterestDto;
     }
 
     /**
