@@ -6,4 +6,7 @@ import lombok.Setter;
 @Setter @Getter
 public class SuccessResponse {
     private String data;
+
+    public SuccessResponse() {
+    }
 }

@@ -13,4 +13,7 @@ public class BooksDto {
     private String isbn;
     private int bookstate;
     private int salestate;
+
+    public BooksDto() {
+    }
 }

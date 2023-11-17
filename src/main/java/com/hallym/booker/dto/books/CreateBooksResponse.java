@@ -7,4 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class CreateBooksResponse {
     private String data;
+
+    public CreateBooksResponse() {
+    }
 }

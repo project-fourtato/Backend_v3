@@ -12,4 +12,7 @@ public class ProfileDto {
     private String useriamgeUrl;
     private String userimageName;
     private String usermessage;
+
+    public ProfileDto() {
+    }
 }

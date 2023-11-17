@@ -15,6 +15,9 @@ public class BooksWithStateDto {
     private String publisher;
     private String cover;
 
+    public BooksWithStateDto() {
+    }
+
     public BooksWithStateDto(String bookName, String bookAuthor, String isbn, String publisher, String cover) {
         this.BookName = bookName;
         this.BookAuthor = bookAuthor;

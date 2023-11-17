@@ -14,4 +14,7 @@ public class SaleLibraryDto {
     private String homepage;
     private String closed;
     private String operatingTime;
+
+    public SaleLibraryDto() {
+    }
 }

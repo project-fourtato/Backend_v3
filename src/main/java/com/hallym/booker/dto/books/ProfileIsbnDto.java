@@ -11,4 +11,7 @@ public class ProfileIsbnDto {
     private String useriamgeUrl;
     private String userimageName;
     private String usermessage;
+
+    public ProfileIsbnDto() {
+    }
 }

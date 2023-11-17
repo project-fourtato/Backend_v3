@@ -14,4 +14,7 @@ public class findJournalsResponse {
     private String pcontents;
     private String pimageUrl;
     private String pimageName;
+
+    public findJournalsResponse() {
+    }
 }

@@ -9,6 +9,9 @@ public class ResponseUploadEntity {
     private String data;
     private String filePath;
 
+    public ResponseUploadEntity() {
+    }
+
     public ResponseUploadEntity(String responseM) {
         responseM = responseM;
     }

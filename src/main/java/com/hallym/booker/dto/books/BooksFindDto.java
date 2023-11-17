@@ -11,4 +11,7 @@ public class BooksFindDto {
     private String author;
     private String isbn;
     private String publisher;
+
+    public BooksFindDto() {
+    }
 }

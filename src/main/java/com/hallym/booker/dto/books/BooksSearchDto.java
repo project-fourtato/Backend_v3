@@ -9,4 +9,7 @@ public class BooksSearchDto {
     private String uid;
     private String isbn;
     private int bookstate;
+
+    public BooksSearchDto() {
+    }
 }

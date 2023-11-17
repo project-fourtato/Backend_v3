@@ -8,4 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 public class LoginResponse {
     private String uid;
+
+    public LoginResponse() {
+    }
 }

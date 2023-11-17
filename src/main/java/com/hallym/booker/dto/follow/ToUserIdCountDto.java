@@ -7,4 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ToUserIdCountDto {
     private String toUserId_Count;
+
+    public ToUserIdCountDto() {
+    }
 }

@@ -9,4 +9,7 @@ public class BooksStateResponse {
     private String userbid;
     private int bookState;
     private int saleState;
+
+    public BooksStateResponse() {
+    }
 }

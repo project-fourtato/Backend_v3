@@ -16,4 +16,6 @@ public class DirectmessageDto {
     private String mtitle;
     private String mcontents;
 
+    public DirectmessageDto() {
+    }
 }

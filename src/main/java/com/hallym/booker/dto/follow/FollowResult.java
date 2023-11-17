@@ -8,6 +8,9 @@ import java.util.List;
 public class FollowResult<T> {
     private List<T> followData;
 
+    public FollowResult() {
+    }
+
     public FollowResult(List<T> followData) {
         this.followData = followData;
     }

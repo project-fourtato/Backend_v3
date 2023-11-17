@@ -11,4 +11,7 @@ public class LoginDto {
     private String pw;
     private String email;
     private String birth;
+
+    public LoginDto() {
+    }
 }

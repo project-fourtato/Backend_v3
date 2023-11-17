@@ -7,4 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class UpdateJournalsResponse {
     private String data;
+
+    public UpdateJournalsResponse() {
+    }
 }

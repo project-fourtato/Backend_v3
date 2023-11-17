@@ -18,4 +18,7 @@ public class ProfileRequest {
     private String uinterest3;
     private String uinterest4;
     private String uinterest5;
+
+    public ProfileRequest() {
+    }
 }

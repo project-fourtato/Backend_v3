@@ -7,4 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class deleteJournalsResponse {
     private String data;
+
+    public deleteJournalsResponse() {
+    }
 }
