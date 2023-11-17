@@ -6,6 +6,7 @@ import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.hallym.booker.dto.GCP.ResponseUploadDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.UUID;
 
 @Service
@@ -27,25 +29,27 @@ public class GCPService {
 
     private String imgUrl = "https://storage.googleapis.com/booker-v3/";
 
-    public String uploadImage(MultipartFile image) throws IOException {
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\\\Users\\\\yeeun\\\\OneDrive\\\\문서\\\\카카오톡 받은 파일\\\\project-booker-404207-83e308ade68a.json"));
-        Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+    public ResponseUploadDto uploadImage(MultipartFile image) throws IOException {
+        BlobInfo blobInfo;
+        try (InputStream inputStream = image.getInputStream()) {
+            Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\capstone_project\\booker\\src\\main\\resources\\project-booker-404207-83e308ade68a.json"));
+            Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
 
-        String uuid = UUID.randomUUID().toString();
-        String ext = image.getContentType();
+            String uuid = UUID.randomUUID().toString();
+            String ext = image.getContentType();
 
-        BlobInfo blobInfo = storage.createFrom(
-                BlobInfo.newBuilder(bucketName, uuid)
-                        .setContentType(ext)
-                        .build(),
-                image.getInputStream()
-        );
-
-        return blobInfo.getName();
+            blobInfo = storage.createFrom(
+                    BlobInfo.newBuilder(bucketName, uuid)
+                            .setContentType(ext)
+                            .build(),
+                    image.getInputStream()
+            );
+        }
+        return new ResponseUploadDto(blobInfo.getName(), (imgUrl + blobInfo.getName()));
     }
 
     public String deleteImage(String fileName) throws IOException {
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\\\Users\\\\yeeun\\\\OneDrive\\\\문서\\\\카카오톡 받은 파일\\\\project-booker-404207-83e308ade68a.json"));
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\capstone_project\\booker\\src\\main\\resources\\project-booker-404207-83e308ade68a.json"));
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
 
         Blob blob = storage.get(bucketName, fileName);
@@ -62,13 +66,13 @@ public class GCPService {
         return "delete success";
     }
 
-    public String updateImage(MultipartFile image, String fileName) throws IOException {
-        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\\\Users\\\\yeeun\\\\OneDrive\\\\문서\\\\카카오톡 받은 파일\\\\project-booker-404207-83e308ade68a.json"));
+    public ResponseUploadDto updateImage(MultipartFile image, String fileName) throws IOException {
+        Credentials credentials = GoogleCredentials.fromStream(new FileInputStream("C:\\capstone_project\\booker\\src\\main\\resources\\project-booker-404207-83e308ade68a.json"));
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
 
         deleteImage(fileName);
-        String link = uploadImage(image);
+        ResponseUploadDto responseUploadDto = uploadImage(image);
 
-        return link;
+        return new ResponseUploadDto(responseUploadDto.getImageName(), responseUploadDto.getImageUrl());
     }
 }

@@ -50,11 +50,15 @@ public class ProfileService {
      * 회원 수정
      */
     @Transactional
-    public void updateProfile(String uid, String userimageUrl, String userimagePath, String usermessage) {
+    public void updateProfile(String uid, String userimageUrl, String userimageName, String usermessage) {
         Profile findProfile = profileRepository.findOne(uid);
-        findProfile.change(userimageUrl, userimagePath, usermessage);
-        //Profile updateOne = new Profile(p.getUid(),p.getNickname(),p.getUseriamgeUrl(),p.getUserimagePath(),p.getUsermessage());
-        //profileRepository.update(updateOne);
+        System.out.println(findProfile + usermessage);
+        if(userimageName == null && userimageUrl == null) {
+            findProfile.change("https://storage.googleapis.com/booker-v3/basis-profile.png", "basis-profile", usermessage);
+        } else {
+            System.out.println(usermessage);
+            findProfile.change(userimageUrl, userimageName, usermessage);
+        }
     }
 
     /**

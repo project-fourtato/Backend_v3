@@ -2,6 +2,7 @@ package com.hallym.booker.api;
 
 import com.hallym.booker.dto.GCP.ResponseDeleteEntity;
 import com.hallym.booker.dto.GCP.ResponseUpdateEntity;
+import com.hallym.booker.dto.GCP.ResponseUploadDto;
 import com.hallym.booker.dto.GCP.ResponseUploadEntity;
 import com.hallym.booker.service.GCPService;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 
 @RestController
@@ -38,7 +40,12 @@ public class GCPApi {
         if(file.isEmpty()) {
             return new ResponseUploadEntity("is empty");
         }
-        return new ResponseUploadEntity("upload success", gcpService.uploadImage(file));
+
+        File tempFile = File.createTempFile("temp", ".jpg");
+        file.transferTo(tempFile);
+
+        ResponseUploadDto responseUploadDto = gcpService.uploadImage(file);
+        return new ResponseUploadEntity("upload success", responseUploadDto.getImageName());
     }
 
     @PostMapping("/GCP/delete")
@@ -56,6 +63,7 @@ public class GCPApi {
         if(file.isEmpty()) {
             return new ResponseUpdateEntity("is empty");
         }
-        return new ResponseUpdateEntity("update success", gcpService.updateImage(file, nameFile));
+        ResponseUploadDto responseUploadDto = gcpService.updateImage(file, nameFile);
+        return new ResponseUpdateEntity("update success", responseUploadDto.getImageName());
     }
 }

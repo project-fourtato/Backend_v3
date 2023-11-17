@@ -90,12 +90,22 @@ public class Profile {
     //==생성 메서드==//
     public static Profile create(Login login, Reports reports, Follow follow, Interests interests, Books books, Directmessage directmessage, String uid, String nickname, String useriamgeUrl, String userimageName, String usermessage){
         Profile profile = new Profile(uid, nickname, useriamgeUrl, userimageName, usermessage);
-        profile.setBooks(books);
-        profile.setDirectmessages(directmessage);
-        profile.setFollow(follow);
+        if (books != null) {
+            profile.setBooks(books);
+        }
+        if (directmessage != null) {
+            profile.setDirectmessages(directmessage);
+        }
+        if (follow != null) {
+            profile.setFollow(follow);
+        }
         profile.setLogin(login);
-        profile.setInterests(interests);
-        profile.setReports(reports);
+        if(interests != null) {
+            profile.setInterests(interests);
+        }
+        if(reports != null) {
+            profile.setReports(reports);
+        }
         return profile;
     }
 
