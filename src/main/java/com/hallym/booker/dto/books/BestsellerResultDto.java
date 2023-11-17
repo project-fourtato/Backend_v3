@@ -11,4 +11,5 @@ public class BestsellerResultDto {
     private String isbn;
     private String publisher;
     private String cover;
+
 }
