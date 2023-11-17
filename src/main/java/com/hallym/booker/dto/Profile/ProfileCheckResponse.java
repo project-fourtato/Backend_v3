@@ -8,4 +8,7 @@ import lombok.Setter;
 @Getter @Setter
 public class ProfileCheckResponse {
     private Boolean data;
+
+    public ProfileCheckResponse() {
+    }
 }

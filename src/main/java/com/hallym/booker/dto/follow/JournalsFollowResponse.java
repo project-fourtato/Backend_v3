@@ -19,4 +19,7 @@ public class JournalsFollowResponse {
     private String nickname;
     private String userimageUrl;
     private String userimageName;
+
+    public JournalsFollowResponse() {
+    }
 }

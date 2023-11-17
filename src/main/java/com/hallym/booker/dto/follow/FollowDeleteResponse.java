@@ -7,4 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class FollowDeleteResponse {
     private String data;
+
+    public FollowDeleteResponse() {
+    }
 }

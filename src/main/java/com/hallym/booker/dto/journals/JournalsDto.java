@@ -14,4 +14,7 @@ public class JournalsDto {
     private String pcontents;
     private String pimageUrl;
     private String pimageName;
+
+    public JournalsDto() {
+    }
 }

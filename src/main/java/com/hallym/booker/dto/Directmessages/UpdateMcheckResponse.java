@@ -7,4 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class UpdateMcheckResponse {
     private String data;
+
+    public UpdateMcheckResponse() {
+    }
 }

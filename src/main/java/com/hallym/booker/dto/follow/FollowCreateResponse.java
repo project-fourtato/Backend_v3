@@ -7,4 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class FollowCreateResponse {
     private String data;
+
+    public FollowCreateResponse() {
+    }
 }

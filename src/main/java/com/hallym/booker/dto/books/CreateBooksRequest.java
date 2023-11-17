@@ -7,4 +7,7 @@ public class CreateBooksRequest {
     private String isbn;
     private int bookstate;
     private int salestate;
+
+    public CreateBooksRequest() {
+    }
 }

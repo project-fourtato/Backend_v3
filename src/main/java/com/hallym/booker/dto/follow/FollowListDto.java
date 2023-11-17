@@ -7,4 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class FollowListDto {
     private String toUserId; // ㅇㅇ에게, 팔로잉/팔로워 당하는 사람
+
+    public FollowListDto() {
+    }
 }

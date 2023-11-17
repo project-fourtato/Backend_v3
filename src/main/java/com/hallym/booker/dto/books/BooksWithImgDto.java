@@ -18,6 +18,9 @@ public class BooksWithImgDto {
     private String publisher;
     private List<ProfileIsbnDto> profile;
 
+    public BooksWithImgDto() {
+    }
+
     public BooksWithImgDto(String userbid, String uid, String isbn, int bookstate, int salestate) {
         this.userbid = userbid;
         this.uid = uid;

@@ -7,4 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class FromUserIdCountDto {
     private String fromUserId_Count;
+
+    public FromUserIdCountDto() {
+    }
 }

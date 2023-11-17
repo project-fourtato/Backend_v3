@@ -11,6 +11,10 @@ import java.io.IOException;
 
 @Configuration
 public class GoogleCloudStorageConfig {
+
+    public GoogleCloudStorageConfig() {
+    }
+
     @Bean
     public Storage storage() throws IOException {
 

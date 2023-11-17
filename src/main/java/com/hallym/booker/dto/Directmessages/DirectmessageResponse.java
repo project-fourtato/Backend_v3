@@ -18,4 +18,7 @@ public class DirectmessageResponse {
     private String nickname;
     private String userimageUrl;
     private String userimageName;
+
+    public DirectmessageResponse() {
+    }
 }
