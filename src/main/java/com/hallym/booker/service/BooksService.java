@@ -31,7 +31,7 @@ public class BooksService {
     @Transactional
     public void updateBooks(String userbid, int bookstate, int salestate) {
         Books books = booksRepository.findOneBooks(userbid);
-        books.change(books.getBookstate(), salestate);
+        books.change(bookstate, salestate);
     }
 
     public Books findOneBooks(String userbid) { return booksRepository.findOneBooks(userbid); }
