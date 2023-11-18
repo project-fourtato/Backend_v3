@@ -50,7 +50,6 @@ public class ProfileApiController {
         SuccessResponse successResponse = new SuccessResponse();
         ResponseUploadDto responseUploadDto;
         if(file == null) {
-            System.out.println("여기로 들어오나?");
             responseUploadDto = new ResponseUploadDto("basisImage", "https://storage.googleapis.com/booker-v3/basis-profile.png");
         }
         else {
@@ -137,6 +136,7 @@ public class ProfileApiController {
             for(int i=0;i<booksList.size();i++){
                 List<Journals> journalsList = journalsService.findAllJournalsByUserbid(booksList.get(i).getUserbid());
                 for(int j=0;j<journalsList.size();j++){
+                    gcpService.deleteImage(journalsList.get(j).getPimageName());
                     journalsService.deleteJournals(journalsList.get(j));
                 }
             }
@@ -155,6 +155,9 @@ public class ProfileApiController {
             for(int i=0;i<booksList.size();i++) {
                 booksService.deleteBooks(booksList.get(i));
             }
+            Profile profile = profileService.findOne(uid);
+            gcpService.deleteImage(profile.getUserimageName());
+
             Login login = loginService.findOne(uid);
             loginService.deleteTableWithForeignKeyChecks(login);
 

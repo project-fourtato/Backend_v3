@@ -2,6 +2,8 @@ package com.hallym.booker.api;
 
 import com.hallym.booker.domain.Books;
 import com.hallym.booker.domain.Journals;
+import com.hallym.booker.domain.Profile;
+import com.hallym.booker.dto.GCP.ResponseUploadDto;
 import com.hallym.booker.dto.Result;
 import com.hallym.booker.dto.books.BestsellerResultDto;
 import com.hallym.booker.dto.books.BooksDto;
@@ -9,9 +11,12 @@ import com.hallym.booker.dto.books.UpdateBooksStateRequest;
 import com.hallym.booker.dto.books.UpdateBooksStateResponse;
 import com.hallym.booker.dto.journals.*;
 import com.hallym.booker.service.BooksService;
+import com.hallym.booker.service.GCPService;
 import com.hallym.booker.service.JournalsService;
+import com.hallym.booker.service.ProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -20,6 +25,7 @@ import org.w3c.dom.NodeList;
 import javax.persistence.MappedSuperclass;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +37,8 @@ public class JournalsApiController {
 
     private final JournalsService journalsService;
     private final BooksService booksService;
+    private final GCPService gcpService;
+    private final ProfileService profileService;
 
     @GetMapping("/journalsList/{userbid}")
     public Result JournalsList(@PathVariable("userbid") String userbid) {
@@ -42,14 +50,22 @@ public class JournalsApiController {
         return new Result(collect);
     }
 
-    @PostMapping("/journals/new/{userbid}")
-    public CreateJournalsResponse createJournals(@RequestBody CreateMemberRequest request,
-                                                 @PathVariable("userbid") String userbid) {
+    @PostMapping("/journals/new")
+    public CreateJournalsResponse createJournals(@RequestParam(value = "file", required = false) MultipartFile file,
+                                                 @RequestParam String userbid,
+                                                 @RequestParam String ptitle,
+                                                 @RequestParam String pcontents
+                                                 ) throws IOException {
         Books findBooks = booksService.findOneBooks(userbid);
         String create_jid = LocalDateTime.now().toString();
 
+        ResponseUploadDto responseUploadDto = new ResponseUploadDto("", "");
+        if(file != null) {
+            responseUploadDto = gcpService.uploadImage(file);
+        }
+
         Journals journals = Journals.create(findBooks, create_jid, LocalDateTime.now().withNano(0),
-                request.getPtitle(), request.getPcontents(), request.getPimageUrl(), request.getPimageName());
+                ptitle, pcontents, responseUploadDto.getImageUrl(), responseUploadDto.getImageName());
 
         journalsService.saveJournals(journals);
         return new CreateJournalsResponse("Write Journals Success");
