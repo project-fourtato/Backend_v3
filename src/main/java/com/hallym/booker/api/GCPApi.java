@@ -20,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,10 +45,18 @@ public class GCPApi {
         }
 
         File tempFile = File.createTempFile("temp", ".jpg");
-        file.transferTo(tempFile);
-
-        ResponseUploadDto responseUploadDto = gcpService.uploadImage(file);
-        return new ResponseUploadEntity("upload success", responseUploadDto.getImageName());
+        try {
+            file.transferTo(tempFile);
+            ResponseUploadDto responseUploadDto = gcpService.uploadImage(file);
+            return new ResponseUploadEntity("upload success", responseUploadDto.getImageName());
+        } finally {
+            Path tempPath = Paths.get(tempFile.getAbsolutePath());
+            try {
+                Files.delete(tempPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @PostMapping("/GCP/delete")
