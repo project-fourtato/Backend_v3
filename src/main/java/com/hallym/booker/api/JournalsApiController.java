@@ -83,8 +83,29 @@ public class JournalsApiController {
     @PutMapping("/journals/{jid}/edit")
     public UpdateJournalsResponse updateJournal(
             @PathVariable("jid") String jid,
-            @RequestBody UpdateJournalsRequest request) {
-        journalsService.updateJournals(jid, request.getPtitle(), request.getPcontents(), request.getPimageUrl(), request.getPimageName());
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(required = false) String ptitle,
+            @RequestParam(required = false) String pcontents) throws IOException {
+        Journals journals = journalsService.findOne(jid);
+        ResponseUploadDto responseUploadDto = new ResponseUploadDto("", "");
+        String tempImageUrl = "";
+        String tempImageName = "";
+        if(file != null) {
+            if(journals.getPimageName().isEmpty()) {
+                responseUploadDto = gcpService.uploadImage(file);
+                tempImageName = responseUploadDto.getImageName();
+                tempImageUrl = responseUploadDto.getImageUrl();
+            } else {
+                responseUploadDto = gcpService.updateImage(file, journals.getPimageName());
+                tempImageName = responseUploadDto.getImageName();
+                tempImageUrl = responseUploadDto.getImageUrl();
+            }
+        } else {
+            tempImageUrl = journals.getPimageUrl();
+            tempImageName = journals.getPimageName();
+        }
+
+        journalsService.updateJournals(jid, ptitle, pcontents, tempImageUrl, tempImageName);
         return new UpdateJournalsResponse("Edit Journals Success");
     }
 
@@ -96,8 +117,11 @@ public class JournalsApiController {
     }
 
     @PostMapping("/journals/{jid}/delete")
-    public deleteJournalsResponse deleteJournals(@PathVariable String jid) {
+    public deleteJournalsResponse deleteJournals(@PathVariable String jid) throws IOException {
         Journals findJournals = journalsService.findOne(jid);
+        if(!findJournals.getPimageName().isEmpty()) {
+            gcpService.deleteImage(findJournals.getPimageName());
+        }
         journalsService.deleteJournals(findJournals);
         return new deleteJournalsResponse("Delete Books Success");
     }

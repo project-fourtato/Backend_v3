@@ -46,7 +46,7 @@ public class BooksApiController {
 
         try {
             // parsing할 url 지정(API 키 포함해서)
-            String url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbwlco13232133003&QueryType=ItemNewAll&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101";
+            String url = "http://www.aladin.co.kr/ttb/api/ItemList.aspx?ttbkey=ttbwlco13232133003&QueryType=Bestseller&MaxResults=10&start=1&SearchTarget=Book&output=xml&Version=20131101";
 
             DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
