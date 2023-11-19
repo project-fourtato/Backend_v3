@@ -24,14 +24,14 @@ public class FollowApiController {
     // 팔로잉 & 팔로워 추가
     // http://localhost:8080/follow/new?toUserId=hamji&fromUserId=poipoi
     @PostMapping("/follow/new")
-    public FollowCreateResponse addFollow(@RequestParam String toUserId, @RequestParam String fromUserId) {
+    public Result addFollow(@RequestParam String toUserId, @RequestParam String fromUserId) {
         // 팔로우 추가를 컨트롤러에서 처리하고 데이터베이스에 저장
         Profile profile = profileService.findOne(fromUserId);
         Follow follow = Follow.create(profile, toUserId);
         followService.saveFollow(follow);
 
         // 성공 메시지 반환
-        return new FollowCreateResponse("Follow created successfully");
+        return new Result("Follow created successfully");
     }
 
     // fromUserId가 팔로잉 하는 수 조회 (전체)
@@ -157,16 +157,21 @@ public class FollowApiController {
     // 팔로잉  & 팔로워 삭제
     // http://localhost:8080/follow/delete?toUserId=hamji&fromUserId=yarong
     @PostMapping("/follow/delete")
-    public FollowDeleteResponse deleteFollow(@RequestParam String toUserId, @RequestParam String fromUserId) {
+    public Result deleteFollow(@RequestParam String toUserId, @RequestParam String fromUserId) {
         Follow follow = followService.findOneTo(fromUserId, toUserId);
         if (follow != null && follow.getToUserId().equals(toUserId)) {
             followService.deleteFollow(follow);
-            return new FollowDeleteResponse("Follow deleted successfully");
+            return new Result("Follow deleted successfully");
         } else {
-            return new FollowDeleteResponse("Follow deleted error");
+            return new Result("Follow deleted error");
         }
     }
 
-
-
+    //팔로잉 유무 확인
+    @GetMapping("/follow/followCheck/toUserId={toUserId}&fromUserId={fromUserId}")
+    public Result followCheck(@PathVariable String toUserId, @PathVariable String fromUserId){
+        Follow follow = followService.findOneTo(fromUserId, toUserId);
+        if(follow != null) {return new Result(true);}
+        else {return new Result(false);}
+    }
 }
