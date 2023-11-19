@@ -117,9 +117,11 @@ public class JournalsApiController {
     }
 
     @PostMapping("/journals/{jid}/delete")
-    public deleteJournalsResponse deleteJournals(@PathVariable String jid) {
+    public deleteJournalsResponse deleteJournals(@PathVariable String jid) throws IOException {
         Journals findJournals = journalsService.findOne(jid);
-
+        if(!findJournals.getPimageName().isEmpty()) {
+            gcpService.deleteImage(findJournals.getPimageName());
+        }
         journalsService.deleteJournals(findJournals);
         return new deleteJournalsResponse("Delete Books Success");
     }
